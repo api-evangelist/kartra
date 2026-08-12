@@ -1,0 +1,150 @@
+generated: '2026-08-12'
+method: derived
+source: >-
+  Derived from the field tables Kartra publishes across its Developers
+  collection — get_lead's response reference, the outbound API event payloads
+  and the IPN variable tables. No OpenAPI exists, so this graph is transcribed
+  from documented field names, not extracted from $refs.
+docs:
+- https://support.kartra.com/en/articles/15369017-lead-retrieving-data
+- https://support.kartra.com/en/articles/15369054-activating-the-outbound-api
+- https://support.kartra.com/en/articles/15369003-the-ipn-system
+summary: >-
+  Kartra's model is lead-centric to an unusual degree: the Lead is the only
+  first-class subject of the API, and every other entity is reachable only as a
+  relation of one lead or as a flat account-level list. There is no way to query
+  products, transactions or memberships in their own right — only "for this
+  lead" or "all of these in the account".
+root_entity: Lead
+entities:
+- name: Lead
+  description: A contact in the account's database. The sole addressable subject of every API call.
+  identifiers:
+  - {field: id, type: string, note: Kartra's unique lead identifier. Takes precedence when both id and email are supplied.}
+  - {field: email, type: string, note: Natural key; no two leads share an email. Doubles as the addressable identifier.}
+  fields: [id, first_name, middle_name, last_name, last_name2, email, phone, phone_country_code, ip, ip_country, address, zip, city, state, country, company, website, facebook, twitter, linkedin, lead_picture, lead_preferred_time_zone, sales_tax_id, business_type, notes, date_joined, score, source, source_id, referring_id, blacklisted, lead_deleted, lead_deleted_date, gdpr_lead_status, gdpr_lead_status_date, gdpr_lead_status_ip, gdpr_lead_communications]
+  enums:
+    source: [single-optin, double-optin, helpdesk, affiliate-signup, checkout, import, api, manual]
+    blacklisted: {0: not blacklisted, 1: blacklisted}
+    gdpr_lead_status: {0: GDPR off for account, 1: not subject, 2: accepted, 3: not accepted, 4: unknown, 5: pending}
+    gdpr_lead_communications: {0: has not agreed to be contacted, 1: has agreed to be contacted}
+- name: CustomField
+  description: Account-defined field attached to every lead. Addressed by a text identifier, not a numeric id.
+  identifiers: [field_id, field_identifier]
+  fields: [field_id, field_identifier, field_type, field_value]
+  enums:
+    field_type: [input_field, text_area, drop_down, radio_button, checkbox]
+  note: >-
+    Value typing follows field_type — string for input_field/text_area, an
+    option id for drop_down/radio_button, an array of option ids for checkbox.
+    An empty string clears the value.
+- name: CustomFieldOption
+  description: A selectable option on a drop_down, radio_button or checkbox custom field.
+  identifiers: [option_id]
+  fields: [option_id, option_value]
+- name: Tag
+  identifiers: [tag_id, tag_name]
+  fields: [tag_id, tag_name]
+- name: List
+  description: A mailing list. Subscription carries an active flag rather than being removed on unsubscribe.
+  identifiers: [list_id, list_name]
+  fields: [list_id, list_name, active]
+- name: Sequence
+  description: An automation sequence a lead progresses through step by step.
+  identifiers: [sequence_id, sequence_name]
+  fields: [sequence_id, sequence_name, step, status]
+  enums:
+    status: [active, unsubscribed]
+- name: Page
+  identifiers: [kartra_page_id, kartra_page_name]
+  fields: [kartra_page_id, kartra_page_name]
+- name: PageSplitTestLink
+  identifiers: [page_split_test_link_id]
+  fields: [page_split_test_link_id, page_split_test_link_name]
+- name: Form
+  identifiers: [form_id]
+  fields: [form_id, form_name]
+- name: Video
+  identifiers: [video_id]
+  fields: [video_id, video_name]
+- name: Survey
+  identifiers: [survey_id]
+  fields: [survey_id, survey_name, survey_type, survey_score, survey_completion_time]
+- name: Membership
+  identifiers: [membership_id]
+  fields: [membership_id, membership_name, level_id, level_name, active]
+  note: Access is granted per LEVEL within a membership, not per membership.
+- name: MembershipLevel
+  identifiers: [level_id]
+  fields: [level_id, level_name]
+- name: Calendar
+  identifiers: [calendar_id]
+  fields: [calendar_id, calendar_name]
+- name: CalendarClass
+  identifiers: [class_id]
+  fields: [class_id, class_name, hosts]
+- name: Product
+  identifiers: [product_id]
+  fields: [product_id, product_name, official_product_name, product_price_point]
+  note: >-
+    A product has numbered price points (1 upward). A price point is not a
+    separate entity with its own id — it is an ordinal on the product.
+- name: Transaction
+  description: A payment. Kartra assigns the order id; the card is charged by the merchant's own connected gateway.
+  identifiers: [transaction_id]
+  fields: [transaction_id, transaction_full_amount, transaction_base_amount, transaction_discount, transaction_shipping, transaction_tax, transaction_date, transaction_type, transaction_parent_id, transaction_affiliate, transaction_jv, transaction_quantity, transaction_last_4_card_digits, original_id]
+  enums:
+    transaction_type: [sale, refund, partial_refund]
+- name: Subscription
+  description: A recurring payment agreement produced by a transaction.
+  identifiers: [transaction_subscription_id, transaction_internal_subscription_id]
+  fields: [transaction_subscription_id, transaction_internal_subscription_id, transaction_subscription_pay_number, payments_left, trial, trial_amount, trial_period]
+  note: >-
+    Two parallel identifiers are exposed — a public subscription id and an
+    "internal" one — and the docs do not state which is stable or which the
+    subscription commands expect. This is a genuine ambiguity in the model.
+- name: Affiliate
+  identifiers: [username]
+  fields: [transaction_affiliate]
+  note: Identified by username string only; no numeric id is exposed through the API.
+- name: JVBroker
+  identifiers: [username]
+  fields: [transaction_jv]
+relationships:
+- {from: Lead, to: CustomField, type: has_many, via: custom_fields}
+- {from: CustomField, to: CustomFieldOption, type: has_many, via: field_value}
+- {from: Lead, to: Tag, type: has_many, via: tags}
+- {from: Lead, to: List, type: has_many, via: lists, note: 'membership carries an active flag (0/1) rather than being deleted'}
+- {from: Lead, to: Sequence, type: has_many, via: sequences, note: 'each carries step and status'}
+- {from: Lead, to: Membership, type: has_many, via: memberships}
+- {from: Membership, to: MembershipLevel, type: has_many, via: level_id}
+- {from: Lead, to: Transaction, type: has_many, via: retrieve_transactions_from_lead}
+- {from: Lead, to: Subscription, type: has_many, via: retrieve_subscriptions_from_lead}
+- {from: Transaction, to: Product, type: belongs_to, via: product_id}
+- {from: Transaction, to: Subscription, type: has_one, via: transaction_subscription_id}
+- {from: Transaction, to: Transaction, type: belongs_to, via: transaction_parent_id, note: 'a refund or partial_refund points at the original sale'}
+- {from: Transaction, to: Affiliate, type: belongs_to, via: transaction_affiliate}
+- {from: Transaction, to: JVBroker, type: belongs_to, via: transaction_jv}
+- {from: Lead, to: CalendarClass, type: has_many, via: calendar_subscribe}
+- {from: CalendarClass, to: Calendar, type: belongs_to, via: calendar_id}
+- {from: Lead, to: Page, type: has_many, via: kartra_page_visit events}
+- {from: Lead, to: Video, type: has_many, via: video_play/video_complete events}
+- {from: Lead, to: Survey, type: has_many, via: survey_complete events}
+- {from: Lead, to: Form, type: has_many, via: filled_form events}
+id_conventions:
+  opaque: false
+  prefixes: none
+  note: >-
+    Kartra uses bare integers (sometimes serialised as strings, e.g. lead id
+    "1234") with no type prefix. Ids are therefore not self-describing: an
+    integer alone does not say whether it is a lead, a tag or a transaction, and
+    identical values collide across entity types.
+timestamps:
+  format: 'YYYY-MM-DD HH:MM:SS'
+  timezone: EST
+  offset_included: false
+gaps:
+- No entity is addressable independently of a lead or an account-wide list — there is no get_product, no list_transactions_for_account, no list_memberships.
+- Affiliates and JV brokers appear only as username strings on transactions; there is no affiliate entity in the API.
+- Subscription exposes two competing identifiers with no documented precedence.
+- No schema document (OpenAPI, JSON Schema) exists for any of these shapes.

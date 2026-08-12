@@ -1,0 +1,85 @@
+generated: '2026-08-12'
+method: searched
+source: https://support.kartra.com/en/articles/15369011-activating-your-app
+docs:
+- https://support.kartra.com/en/articles/15369011-activating-your-app
+- https://support.kartra.com/en/articles/15369018-lead-searching-creating-editing
+summary: >-
+  Kartra ships a real test mode, but it is a property of the developer's App
+  rather than of the credential. A newly created App starts in Test Mode
+  automatically and stays there until a human reviewer at Kartra approves it for
+  live activation. There are no separate test keys, no test/live key prefixes
+  and no separate sandbox host — the same app_id / api_key / api_password hit
+  the same https://app.kartra.com/api endpoint in both modes.
+
+modes:
+- name: Test Mode
+  default: true
+  activation: Automatic on App creation (Settings > Integrations > My Apps > add App)
+  capability: >-
+    "the App is 100% operational and can execute all commands from our API
+    system" — every cmd works, against the App user's real Kartra account.
+  limitations:
+  - id: no-outbound-email
+    description: Kartra will not send any email to any lead registered while in Test Mode.
+  - id: email-domain-rewrite
+    description: >-
+      Any lead registered in Test Mode has its email DOMAIN replaced with
+      @kartra.com. The docs' own example: creating a lead for
+      johnsmith@gmail.com subscribes that user under johnsmith@kartra.com
+      instead.
+    consequence: >-
+      The local-part is preserved, so two test leads with the same local-part at
+      different domains collide into one address and the second create fails
+      with 244 "Lead already exists". Test suites must vary the local-part, not
+      the domain.
+- name: Live Mode
+  default: false
+  activation: >-
+    Submit the App for live activation. "Our admins will manually review your
+    application and respond within a few business days."
+  gate: manual-human-review
+  caveat: >-
+    Kartra explicitly forbids flipping to live merely to test with real emails:
+    "You cannot turn on live mode just to test your content with live emails.
+    When you switch to live mode your content/application will be reviewed by
+    our review team and it must be complete. If your content is not done, you
+    will be reset back to test mode."
+
+key_separation:
+  test_key_prefix: null
+  live_key_prefix: null
+  separate_host: false
+  note: >-
+    No test/live credential separation exists. Mode is server-side state on the
+    App record, so a client cannot tell from its own configuration which mode it
+    is operating in — there is no documented field in the response that reports
+    it either.
+
+test_values:
+  magic_identifiers: none published
+  test_cards: none published
+  test_bank_accounts: none published
+  note: >-
+    Kartra does not process cards itself; checkout runs through the merchant's
+    own connected gateway (Stripe, Authorize.net, PayPal, Braintree, Square).
+    Test card values therefore come from the gateway, not from Kartra. Kartra
+    does surface a "default test credit card gateway" inside Product setup
+    (referenced in the 2026-06-29 / 9.70.0 release notes) but publishes no test
+    card numbers of its own, so none are recorded here.
+
+test_clocks:
+  supported: false
+  note: No time simulation, clock advancement or subscription-rebill fast-forward tooling is documented.
+
+fixtures_and_triggers:
+  supported: false
+  note: >-
+    No CLI, no event-trigger tooling and no fixture generator. Outbound API and
+    IPN callbacks can only be exercised by performing the real action in the
+    account.
+
+gaps:
+- Test Mode cannot be exercised without a live Kartra subscription — there is no free developer tier and no self-serve sandbox account.
+- Going live requires human approval, so an unattended agent cannot promote an integration.
+- No documented way to reset or purge test data created during Test Mode.

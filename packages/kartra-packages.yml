@@ -1,0 +1,56 @@
+generated: '2026-08-12'
+method: searched
+source: registry queries against npm, PyPI, RubyGems, Packagist and crates.io on 2026-08-12
+official_package_count: 0
+summary: >-
+  Kartra ships NO first-party client library in any language. Its own developer
+  documentation offers raw PHP cURL snippets instead of an SDK — five "PHP
+  sample" articles are the entire client-side story. Every package below is
+  third-party. Because there is no official SDK, no SDKs pointer is emitted for
+  this provider.
+registries_searched:
+- {registry: npm, query: kartra, official_hits: 0}
+- {registry: pypi, queries: [kartra, kartra-api, pykartra], official_hits: 0, note: all 404}
+- {registry: rubygems, query: kartra, official_hits: 0}
+- {registry: packagist, query: kartra, official_hits: 0, note: 'no PHP client despite PHP being the language of every official sample'}
+- {registry: crates.io, query: kartra, official_hits: 0}
+packages: []
+third_party_packages:
+- language: javascript
+  registry: npm
+  name: '@pipedream/kartra'
+  url: https://www.npmjs.com/package/@pipedream/kartra
+  install: npm install @pipedream/kartra
+  official: false
+  publisher: Pipedream
+  version: 0.0.3
+  published: '2025-08-20'
+  note: Kartra components for the Pipedream workflow platform, not a general-purpose client.
+- language: javascript
+  registry: npm
+  name: '@ivanlaomarketing/n8n-nodes-kartra'
+  url: https://www.npmjs.com/package/@ivanlaomarketing/n8n-nodes-kartra
+  install: npm install @ivanlaomarketing/n8n-nodes-kartra
+  official: false
+  publisher: Ivan Lao Marketing (community)
+  version: 1.0.1
+  published: '2026-03-02'
+  repository: https://github.com/ivanlaomarketing/n8n-nodes-kartra
+  note: >-
+    n8n community node covering leads, tags, lists, sequences, calendars and
+    transactions. Currently the most complete public client-side mapping of the
+    Kartra command surface, and it is maintained by an individual, not Kartra.
+excluded:
+- {name: kartra-jquery, registry: npm, reason: 'unrelated jQuery fork with a squatted version number (99.9.9); not a Kartra client'}
+- {name: kartra-jquery-validation, registry: npm, reason: unrelated jQuery validation fork}
+- {name: kartrace, registry: rubygems, reason: name collision, unrelated project}
+github:
+  org: null
+  note: >-
+    No github.com/kartra organisation exists (GitHub API returns 404). Kartra
+    publishes no source, no samples repository and no reference implementation.
+    The PHP samples live only as help-centre article text.
+gaps:
+- No official SDK in any language — integrators hand-roll HTTP against a form-encoded endpoint.
+- No published GitHub organisation, so there is nowhere to file issues against a client.
+- No Postman collection or workspace (searched Postman public workspaces; no Kartra-published result).

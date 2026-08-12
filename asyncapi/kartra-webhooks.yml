@@ -1,0 +1,177 @@
+generated: '2026-08-12'
+method: searched
+source: https://support.kartra.com/en/collections/19655232-developers
+spec_type: none
+spec_note: >-
+  Kartra publishes NO AsyncAPI document. It does publish a complete, per-event
+  payload reference for two distinct callback surfaces, captured below as a
+  webhook catalogue. Nothing here is generated: every event name, action value
+  and payload key is transcribed from Kartra's own documentation.
+surfaces:
+- name: Outbound API
+  kind: webhook
+  direction: kartra-to-you
+  transport: HTTP POST, raw body, JSON
+  configuration: Account UI, Integrations > My API > Outbound API — one or more target URLs, each subscribed to one or more events
+  docs: https://support.kartra.com/en/articles/15369054-activating-the-outbound-api
+  envelope:
+    lead: Full lead profile object (identical shape across every event) including custom_fields[] and the four gdpr_* consent fields
+    action: String naming the event
+    action_details: Event-specific object, shape varies per event
+- name: IPN (Instant Payment Notification)
+  kind: webhook
+  direction: kartra-to-you
+  transport: HTTP POST, form fields (not JSON)
+  configuration: Per-product IPN URL; the docs recommend pointing it at a .php file on an https domain
+  docs: https://support.kartra.com/en/articles/15369003-the-ipn-system
+  envelope_note: >-
+    Flat POST variables, not a nested object. "Any variable with an empty value
+    will be posted as 'N/A.'" — consumers must string-compare against the
+    literal "N/A" rather than testing for null or a missing key.
+event_count: 30
+outbound_api_events:
+- action: "jv_signup"
+  title: "If a JV signs up for a product"
+  action_details_fields: [product, product_id, product_name, official_product_name]
+  source: https://support.kartra.com/en/articles/15391959-if-a-jv-signs-up-for-a-product
+- action: "cancel_subscription"
+  title: "If a subscription is cancelled"
+  action_details_fields: [transaction_details, transaction_id, lead_first_name, lead_last_name, lead_email, lead_username, lead_id, product_name, product_id, product_price_point, transaction_date, transaction_type]
+  source: https://support.kartra.com/en/articles/15391960-if-a-subscription-is-cancelled
+- action: null
+  title: "If a transaction is refunded"
+  action_details_fields: [transaction_details, transaction_id, lead_first_name, lead_last_name, lead_email, lead_username, lead_id, product_name, product_id, product_price_point, transaction_quantity, transaction_full_amount]
+  source: https://support.kartra.com/en/articles/15391961-if-a-transaction-is-refunded
+- action: "affiliate_signup"
+  title: "If an affilate signs up for a product"
+  action_details_fields: [product, product_id, product_name, official_product_name]
+  source: https://support.kartra.com/en/articles/15391963-if-an-affilate-signs-up-for-a-product
+- action: "buy_product"
+  title: "If lead buys a product"
+  action_details_fields: [transaction_details, transaction_id, lead_first_name, lead_last_name, lead_email, lead_username, lead_id, product_name, product_id, product_price_point, transaction_quantity, transaction_full_amount]
+  source: https://support.kartra.com/en/articles/15391964-if-lead-buys-a-product
+- action: "calendar_cancel"
+  title: "If lead cancels a calendar"
+  action_details_fields: [calendar, calendar_id, calendar_name, class_id, class_name, hosts, host_first_name, host_last_name, host_email_address, vendor_timezone, calendar_subscription_id, events]
+  source: https://support.kartra.com/en/articles/15391965-if-lead-cancels-a-calendar
+- action: "click_page_split_test_link"
+  title: "If lead clicks on a page split test link"
+  action_details_fields: [page_split_test_link, page_split_test_link_id, page_split_test_link_name]
+  source: https://support.kartra.com/en/articles/15391966-if-lead-clicks-on-a-page-split-test-link
+- action: "calendar_complete"
+  title: "If lead completes a calendar"
+  action_details_fields: [calendar, calendar_id, calendar_name, class_id, class_name, hosts, host_first_name, host_last_name, host_email_address, vendor_timezone, calendar_subscription_id, events]
+  source: https://support.kartra.com/en/articles/15391967-if-lead-completes-a-calendar
+- action: "sequence_completion"
+  title: "If lead completes a sequence"
+  action_details_fields: [sequence, sequence_id, sequence_name]
+  source: https://support.kartra.com/en/articles/15391968-if-lead-completes-a-sequence
+- action: "survey_complete"
+  title: "If lead completes a survey"
+  action_details_fields: [survey, survey_id, survey_name, survey_type, survey_score, survey_completion_time, questions, question_id, question_title, question_correct, answers, option_id]
+  source: https://support.kartra.com/en/articles/15391969-if-lead-completes-a-survey
+- action: "video_complete"
+  title: "If lead completes video"
+  action_details_fields: [video, video_id, video_name]
+  source: https://support.kartra.com/en/articles/15391971-if-lead-completes-video
+- action: "filled_form"
+  title: "If lead fills in a form"
+  action_details_fields: [tag, form_id, form_name]
+  source: https://support.kartra.com/en/articles/15391972-if-lead-fills-in-a-form
+- action: "assign_tag"
+  title: "If lead is assigned a tag"
+  action_details_fields: [tag, tag_id, tag_name]
+  source: https://support.kartra.com/en/articles/15391973-if-lead-is-assigned-a-tag
+- action: "membership_granted"
+  title: "If lead is granted access to membership (Kartra or external)"
+  action_details_fields: [membership, membership_id, membership_name, level_id, level_name]
+  source: https://support.kartra.com/en/articles/15391974-if-lead-is-granted-access-to-membership-kartra-or-external
+- action: "membership_revoked"
+  title: "If lead is revoked access to membership (Kartra or external)"
+  action_details_fields: [membership, membership_id, membership_name, level_id, level_name]
+  source: https://support.kartra.com/en/articles/15391975-if-lead-is-revoked-access-to-membership-kartra-or-external
+- action: "sequence_subscription"
+  title: "If lead is subscribed to a sequence"
+  action_details_fields: [sequence, sequence_id, sequence_name]
+  source: https://support.kartra.com/en/articles/15391976-if-lead-is-subscribed-to-a-sequence
+- action: "unassign_tag"
+  title: "If lead is unassigned a tag"
+  action_details_fields: [tag, tag_id, tag_name]
+  source: https://support.kartra.com/en/articles/15391977-if-lead-is-unassigned-a-tag
+- action: "sequence_unsubscription"
+  title: "If lead is unsubscribed from a sequence"
+  action_details_fields: [sequence, sequence_id, sequence_name]
+  source: https://support.kartra.com/en/articles/15391978-if-lead-is-unsubscribed-from-a-sequence
+- action: "video_play"
+  title: "If lead plays video"
+  action_details_fields: [video, video_id, video_name]
+  source: https://support.kartra.com/en/articles/15391979-if-lead-plays-video
+- action: "reaches_score"
+  title: "If lead reaches score for the first time"
+  action_details_fields: [points]
+  source: https://support.kartra.com/en/articles/15391980-if-lead-reaches-score-for-the-first-time
+- action: "calendar_subscribe"
+  title: "If lead subscribes to a calendar"
+  action_details_fields: [calendar, calendar_id, calendar_name, class_id, class_name, hosts, host_first_name, host_last_name, host_email_address, vendor_timezone, calendar_subscription_id, events]
+  source: https://support.kartra.com/en/articles/15391981-if-lead-subscribes-to-a-calendar
+- action: "list_subscription"
+  title: "If lead subscribes to a list"
+  action_details_fields: [list, list_id, list_name]
+  source: https://support.kartra.com/en/articles/15391982-if-lead-subscribes-to-a-list
+- action: "list_unsubscription"
+  title: "If lead unsubscribes from a list"
+  action_details_fields: [list, list_id, list_name]
+  source: https://support.kartra.com/en/articles/15391983-if-lead-unsubscribes-from-a-list
+- action: "kartra_page_visit"
+  title: "If lead visits a Kartra page"
+  action_details_fields: [kartra_page, kartra_page_id, kartra_page_name]
+  source: https://support.kartra.com/en/articles/15391984-if-lead-visits-a-kartra-page
+ipn_events:
+- id: one-time-payment
+  title: Sale, refund or chargeback for one-time payments without an initial payment (trial) enabled
+  discriminator: transaction_type
+  values: [sale, refund, partial_refund]
+  source: https://support.kartra.com/en/articles/15369004-sale-refund-or-chargeback-for-one-time-payments-without-an-initial-payment-aka-trial-enabled
+- id: trial-or-subscription-sale
+  title: Sale for one-time payments with an initial payment (trial), or sale for a subscription
+  source: https://support.kartra.com/en/articles/15369005-sale-for-one-time-payments-with-an-initial-payment-aka-trial-or-sale-for-a-subscription
+- id: rebill
+  title: Rebill for a subscription, or a follow up after a one-time payment initial payment (trial)
+  source: https://support.kartra.com/en/articles/15369006-rebill-for-a-subscription-or-a-follow-up-after-a-one-time-payment-initial-payment-trial
+- id: recurring-refund-or-failure
+  title: Refund, failed rebill, or chargeback for a recurring subscription payment, or for a one time payment with a trial
+  source: https://support.kartra.com/en/articles/15369007-refund-failed-rebill-or-chargeback-for-a-recurring-subscription-payment-or-for-a-one-time-payment-with-a-trial
+- id: subscription-cancellation
+  title: Cancelation of a recurring payment subscription
+  source: https://support.kartra.com/en/articles/15369008-cancelation-of-a-recurring-payment-subscription
+- id: ipn-system
+  title: The IPN system (variable reference and configuration notes)
+  source: https://support.kartra.com/en/articles/15369003-the-ipn-system
+ipn_core_variables:
+  transaction: [transaction_id, transaction_full_amount, transaction_base_amount, transaction_discount, transaction_shipping, transaction_tax, transaction_date, transaction_type, transaction_parent_id, transaction_affiliate, transaction_jv, transaction_quantity, transaction_subscription_id, transaction_internal_subscription_id, transaction_subscription_pay_number, transaction_last_4_card_digits, original_id]
+  product: [product_name, product_id, product_price_point, trial, trial_amount, trial_period, payments_left]
+  buyer: [lead_id, lead_first_name, lead_last_name, lead_email, lead_username, lead_phone_country_code, lead_phone_number, lead_address, lead_city, lead_zip, lead_state, lead_country, lead_country_code_2]
+  refund_note: >-
+    On refund or partial_refund the system additionally sends
+    transaction_parent_id, the original sale's order id, so the consumer can
+    match the reversal to the original transaction.
+security:
+  signing: none
+  shared_secret: none
+  replay_protection: none
+  source_ip_allowlist: not published
+  note: >-
+    Kartra documents no HMAC signature, no timestamp header and no shared secret
+    for either the Outbound API or IPN. A receiver cannot cryptographically
+    verify that a callback came from Kartra. The documented consumption pattern
+    is a bare file_get_contents("php://input") with no verification step. This
+    is the most significant security gap on Kartra's event surface.
+delivery:
+  retries: not documented
+  ordering: not documented
+  at_least_once: not documented
+gaps:
+- No AsyncAPI or JSON Schema for any event payload.
+- No signature verification on either callback surface.
+- No delivery/retry semantics published, so consumers cannot reason about duplicates or gaps.
+- The two surfaces overlap (buy_product on the Outbound API vs the IPN sale) with different encodings — JSON body vs form POST — and different field naming.

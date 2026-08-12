@@ -1,0 +1,106 @@
+generated: '2026-08-12'
+method: searched
+source: https://kartra.com/gdpr/
+docs:
+- https://kartra.com/gdpr/
+- https://kartra.com/dpa/
+- https://kartra.com/privacy-policy/
+- https://kartra.com/terms-conditions/
+summary: >-
+  Kartra publishes a compliance posture at the PLATFORM level (GDPR programme
+  with a DPA and EU Model Clauses, and an annual PCI DSS audit) but asserts no
+  API-level or cross-cutting technical standard. The developer API is a
+  proprietary single-endpoint RPC surface that conforms to none of the usual
+  API standards.
+standards:
+- id: gdpr
+  conforms: true
+  evidence: >-
+    Dedicated GDPR page describing Controller/Processor roles, a Data Processing
+    Addendum available on written request to the Data Protection Officer, EU
+    Model Clauses for EU-to-US transfer, and named sub-processors (Amazon Web
+    Services, Rackspace, SendGrid).
+  url: https://kartra.com/gdpr/
+  api_surface: >-
+    GDPR consent state is exposed through the API and the outbound events as
+    four fields on every lead: gdpr_lead_status (0 off, 1 not subject, 2
+    accepted, 3 not accepted, 4 unknown, 5 pending), gdpr_lead_status_date,
+    gdpr_lead_status_ip and gdpr_lead_communications (0/1). Consent is therefore
+    machine-readable — an unusually good signal for this class of platform.
+- id: pci-dss
+  conforms: true
+  evidence: >-
+    "Kartra adheres to, and is audited annually for compliance with, the Payment
+    Card Industry Data Security Standard." Audit documentation is offered on
+    request via info@kartra.com. No level, version or QSA is named, and no
+    Attestation of Compliance is published.
+  url: https://kartra.com/gdpr/
+- id: soc2
+  conforms: false
+  evidence: No SOC 2 report, Type I or Type II, is claimed anywhere on kartra.com or in the help centre.
+- id: iso-27001
+  conforms: false
+  evidence: No ISO 27001 certification claimed.
+- id: hipaa
+  conforms: false
+  evidence: No HIPAA or BAA offering claimed.
+- id: ccpa
+  conforms: false
+  evidence: Not claimed on the GDPR page or the privacy policy's compliance section.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    The API authenticates with three form-field credentials (app_id, api_key,
+    api_password). Auth0 at login.kartra.com serves the product's human sign-in
+    only and issues no developer-usable token.
+- id: oidc
+  conforms: false
+  evidence: No /.well-known/openid-configuration on any Kartra host (404 on kartra.com, 403 on app/api hosts).
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors are a proprietary {status, message, type} envelope returned with HTTP
+    200, not application/problem+json.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: >-
+    No security.txt on kartra.com (404) or /security.txt (404). The 200 at
+    support.kartra.com is Intercom's own file, canonicalised to
+    app.intercom.com — see well-known/kartra-well-known.yml.
+- id: rfc8594-sunset
+  conforms: false
+  evidence: No Sunset or Deprecation header support and no deprecation policy.
+- id: rest
+  conforms: false
+  evidence: >-
+    Single endpoint, POST only, no resource paths, no HTTP verb semantics, no
+    status-code semantics. Operation selection is via an actions[].cmd field.
+- id: json-api
+  conforms: false
+  evidence: Request bodies are form-encoded; responses are ad-hoc JSON with no JSON:API document structure.
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI or Swagger document found at any probed location on kartra.com,
+    app.kartra.com, api.kartra.com or support.kartra.com.
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    Two real webhook surfaces (Outbound API, IPN) with per-event payload
+    documentation, but no AsyncAPI document. See asyncapi/kartra-webhooks.yml.
+- id: webhook-signing
+  conforms: false
+  evidence: >-
+    No HMAC signature, shared secret, timestamp header or replay protection is
+    documented for either callback surface.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency key, dedupe window or safe-retry contract is documented.
+- id: pagination
+  conforms: false
+  evidence: No page, limit, offset or cursor parameter on any retrieve_* command.
+sub_processors:
+  published: true
+  named: [Amazon Web Services, Rackspace, SendGrid]
+  url: https://kartra.com/gdpr/
+  note: Named inline on the GDPR page rather than in a maintained sub-processor register with a change-notification commitment.

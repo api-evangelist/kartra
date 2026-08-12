@@ -1,0 +1,43 @@
+generated: '2026-08-12'
+method: searched
+source: https://support.kartra.com/en/articles/15369015-api-limits
+docs: https://support.kartra.com/en/articles/15369015-api-limits
+limit_count: 1
+limits:
+- name: inbound-api-per-app
+  scope: per-app
+  limit: 20
+  unit: requests
+  window: 1s
+  burst: null
+  enforced_on: POST https://app.kartra.com/api
+  description: >-
+    "The inbound API system has a hardcoded limit of 20 API calls per second,
+    per App." The ceiling is attached to the developer's App ID, not to the
+    end-user account, so every user of a given App shares one bucket.
+  on_exhaustion:
+    status: 429
+    message: Too many requests
+    retry_guidance: >-
+      Kartra's documented remedy is to wait one second and retry, and to put a
+      queue in front of the API to throttle bursts.
+response_headers:
+  documented: false
+  observed: null
+  note: >-
+    Kartra publishes NO rate-limit response headers — no X-RateLimit-*, no
+    RateLimit-* (RFC 9331 draft), no Retry-After. An agent therefore has no
+    runtime signal for remaining quota or reset time and can only discover the
+    ceiling by hitting it. This is the single largest runtime-semantics gap in
+    the Kartra API.
+anomaly:
+  note: >-
+    The 429 on exhaustion is the ONLY non-200 status Kartra documents. Every
+    other outcome, including authentication failure, is returned as HTTP 200
+    with an error envelope in the body (see conventions/ and errors/). An agent
+    must not treat HTTP status as the success signal on this API.
+outbound_api:
+  limits_documented: false
+  note: >-
+    No delivery-rate, retry or backoff policy is published for the outbound API
+    (webhooks) or the IPN system.

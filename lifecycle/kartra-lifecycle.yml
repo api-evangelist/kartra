@@ -1,0 +1,75 @@
+generated: '2026-08-12'
+method: searched
+source: https://support.kartra.com/en/collections/19655235-release-notes
+versioning:
+  api:
+    scheme: none
+    current: null
+    note: >-
+      The developer API is unversioned. https://app.kartra.com/api carries no
+      version path segment, no version header and no date pinning, so a client
+      has no way to pin behaviour or opt out of a change.
+  platform:
+    scheme: semver-like
+    current: 9.75.0
+    current_date: '2026-07-21'
+    docs: https://support.kartra.com/en/collections/19655235-release-notes
+    note: >-
+      Kartra versions the PRODUCT, not the contract. Release notes are published
+      per build (128 articles, roughly weekly) but the version is not addressable
+      from the API.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    Kartra publishes no deprecation policy, no advance-notice window and no
+    RFC 8594 Sunset/Deprecation header support. Removals are announced only in
+    the release notes AFTER they ship — the 9.75.0 notes (2026-07-21) record
+    that the Skype channel was removed from Helpdesks and the Facebook Comments
+    widget from the page builder, both already applied to existing accounts at
+    publication. Because no policy exists, NO Deprecation pointer is emitted.
+  observed_removals:
+  - version: 9.75.0
+    date: '2026-07-21'
+    change: Skype channel removed from Kartra Helpdesk; a Support ticket channel was auto-added where Skype was the only channel
+  - version: 9.75.0
+    date: '2026-07-21'
+    change: Facebook Comments widget removed from the page builder; existing components render as empty space
+  - version: 8.0.0
+    date: '2025-05-13'
+    change: New Checkouts introduced; the previous checkout was progressively relabelled "Legacy Checkout form" (9.73.0, 2026-07-07)
+sla:
+  url: null
+  uptime_target: null
+  note: No public SLA or uptime commitment is published on kartra.com or in the help centre.
+status_page:
+  url: https://status.kartra.com/
+  platform: Uptime Kuma
+  http_status: 200
+  machine_readable_feed: false
+  note: >-
+    Self-hosted Uptime Kuma status board. There is no Statuspage-style
+    /api/v2/summary.json, no history.rss and no history.atom — every one of
+    those paths returns the Kuma single-page-app shell, so the page is
+    human-readable only and cannot be polled by an agent.
+support:
+  help_center: https://support.kartra.com/en/
+  developer_collection: https://support.kartra.com/en/collections/19655232-developers
+  contact: info@kartra.com
+docs_migration:
+  note: >-
+    Kartra's developer documentation moved off documentation.kartra.com (now a
+    hard 404, including every deep link such as /api-integration/ and
+    /section-31-api-limits/) and off the Freshdesk help centre at
+    support.kartra.com/support/solutions/* (also 404) onto an Intercom help
+    centre at support.kartra.com/en/. The old URLs are still what search engines
+    and kartra.com's own /integrations-and-apis/ page link to, so the published
+    entry point to the API docs is currently broken.
+  evidence:
+  - {url: 'https://documentation.kartra.com/', status: 404}
+  - {url: 'https://documentation.kartra.com/api-integration/', status: 404}
+  - {url: 'https://support.kartra.com/en/collections/19655232-developers', status: 200}
+deprecated_operations: []
+deprecated_operations_note: No OpenAPI is published, so no operation-level deprecation flags exist to derive from.

@@ -1,0 +1,86 @@
+generated: '2026-08-12'
+method: searched
+source: https://support.kartra.com/en/articles/15369013-connecting-to-the-api
+docs:
+- https://support.kartra.com/en/articles/15369013-connecting-to-the-api
+- https://support.kartra.com/en/articles/15369011-activating-your-app
+- https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+summary:
+  types: [apiKey]
+  api_key_in: [body]
+  oauth2_flows: []
+  note: >-
+    Kartra's developer API uses no standard HTTP auth scheme. There is no
+    Authorization header, no bearer token and no OAuth2. Three credentials are
+    posted as ordinary form fields in the request body of every call. This is a
+    three-credential model rather than a single key, and it separates the App
+    developer's identity from the App user's account.
+transport:
+  scheme: https
+  required: true
+  note: >-
+    "you must connect using https (not http) as our API requires SSL encryption
+    for a request to be accepted." An http call is rejected with error type 201
+    "Connection not secure".
+schemes:
+- name: app_id
+  type: apiKey
+  in: body
+  parameter: app_id
+  held_by: app-developer
+  description: >-
+    The developer's App identifier, issued when a custom App is created under
+    Settings > Integrations > My Apps and hard-coded into the integration.
+    Kartra rejects any call without a valid App ID.
+  errors: ['238 App Id cannot be empty', '239 App Id is not valid. The app does not exists or is inactive', '240 App Account inactive']
+- name: api_key
+  type: apiKey
+  in: body
+  parameter: api_key
+  held_by: app-user
+  description: >-
+    The end user's Kartra API key, obtained by that user from Settings >
+    Integrations > My API in their own account.
+  errors: ['202 API key cannot be empty', '203 API key not valid', '204 API Account inactive']
+- name: api_password
+  type: apiKey
+  in: body
+  parameter: api_password
+  held_by: app-user
+  description: The end user's Kartra API password, issued alongside the API key.
+  errors: ['233 API password not valid. Please get an API password first']
+identity_model:
+  roles:
+  - role: app-developer
+    holds: app_id
+    note: Creator of the third-party integration. The App must be submitted for manual review before it leaves Test Mode.
+  - role: app-user
+    holds: [api_key, api_password]
+    note: >-
+      The Kartra account the actions execute against. "The actions commanded by
+      the API call will be executed in the App user's Kartra account, not in the
+      App developer's Kartra account."
+authorization:
+  model: per-app-command-permissions
+  note: >-
+    Kartra gates which commands an App may execute. Attempting a command the App
+    is not approved for returns error type 262 "App does not have permission to
+    execute this CMD". There is no OAuth scope surface, no consent screen and no
+    published permission catalogue — approval is granted by Kartra admins during
+    App review, so the permission set is not machine-discoverable.
+  ip_allowlist:
+    supported: true
+    evidence: 'Error type 242: "This API call was sent from an unauthorized IP"'
+    note: Kartra enforces an IP allowlist per App; the configuration surface is inside the account UI and is not documented publicly.
+oauth2: null
+oauth2_note: >-
+  login.kartra.com runs Auth0 for the Kartra web application's own end-user
+  sign-in (an OIDC authorization_code + PKCE flow observed on the app.kartra.com
+  307). That is the product's human login, NOT an API authorization surface —
+  it issues no developer-usable token and no scopes. Do not read it as OAuth2
+  support for the API.
+gaps:
+- No Authorization header; credentials travel in the POST body of every request.
+- No token issuance, expiry, refresh or revocation is documented.
+- No key-rotation guidance published.
+- No machine-readable securityScheme (Kartra publishes no OpenAPI).

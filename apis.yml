@@ -1,18 +1,86 @@
 aid: kartra
 name: Kartra
-description: 'Kartra is a company surfaced via the API Evangelist harvest backlog (source: marketing-integration-graph)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Kartra is an all-in-one online business platform operated by Kartra, Inc. of
+  Las Vegas, Nevada, that bundles landing pages and funnels, email marketing with automation sequences,
+  checkouts and recurring billing, membership sites and courses, video hosting,
+  calendars and booking, helpdesks, affiliate management and lead scoring into a
+  single subscription. Its developer surface is three distinct things: an
+  inbound API that is a single form-encoded POST endpoint at
+  https://app.kartra.com/api driven by 29 documented `cmd` values and scoped to
+  exactly one lead per call; an outbound API that POSTs 24 JSON lead and
+  commerce events to URLs configured in the account; and an IPN system that
+  POSTs six payment-lifecycle notifications as flat form variables. Kartra
+  publishes no OpenAPI, no SDK in any language, no signed webhooks and no
+  idempotency contract, and it returns HTTP 200 for every outcome including
+  authentication failure — the numeric `type` field in the response body is the
+  real error signal.
+image: https://kartra.com/wp-content/uploads/2024/06/Kartra-logo-icon-blue-transparent.png
 url: https://raw.githubusercontent.com/api-evangelist/kartra/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:marketing-integration-graph
-x-tier: stub
-x-tier-reason: harvest
+x-tier: enriched
+x-tier-reason: enrichment-pipeline
 specificationVersion: '0.20'
 created: '2026-08-12'
 modified: '2026-08-12'
 tags:
 - Company
-apis: []
+- Marketing Automation
+- Email Marketing
+- CRM
+- Contacts
+- E-Commerce
+- Payments
+- Subscriptions
+- Membership
+- Landing Pages
+- Webhooks
+- SaaS
+apis:
+- aid: kartra:kartra-api
+  name: Kartra API
+  description: >-
+    Kartra's inbound developer API. One endpoint, POST only, form-encoded, with
+    the operation selected by `actions[].cmd`. Twenty-nine documented commands
+    cover leads, tags, lists, automation sequences, custom fields, lead scoring,
+    pages, calendar bookings, payment transactions and recurring subscriptions.
+    Every call carries three credentials in the body — the developer's `app_id`
+    plus the end user's `api_key` and `api_password` — and acts on exactly one
+    lead. Rate limited to 20 calls per second per App.
+  humanURL: https://support.kartra.com/en/collections/19655232-developers
+  baseURL: https://app.kartra.com/api
+  tags:
+  - Marketing Automation
+  - Contacts
+  - Email Marketing
+  - Payments
+  - Subscriptions
+  properties:
+  - type: Documentation
+    url: https://support.kartra.com/en/collections/19655232-developers
+  - type: APIReference
+    url: https://support.kartra.com/en/articles/15369013-connecting-to-the-api
+  - type: GettingStarted
+    url: https://support.kartra.com/en/articles/15369011-activating-your-app
+  - type: Authentication
+    url: authentication/kartra-authentication.yml
+  - type: Conventions
+    url: conventions/kartra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kartra-error-codes.yml
+  - type: RateLimits
+    url: rate-limits/kartra-rate-limits.yml
+  - type: Sandbox
+    url: sandbox/kartra-sandbox.yml
+  - type: DataModel
+    url: data-model/kartra-data-model.yml
+  - type: Webhooks
+    url: asyncapi/kartra-webhooks.yml
+  - type: MCPServer
+    url: mcp/kartra-mcp.yml
+  - type: AgentSkill
+    url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -21,7 +89,90 @@ maintainers:
 common:
 - type: Website
   url: https://kartra.com/
+- type: DeveloperPortal
+  url: https://support.kartra.com/en/collections/19655232-developers
+- type: Documentation
+  url: https://support.kartra.com/en/collections/19655232-developers
+- type: APIReference
+  url: https://support.kartra.com/en/articles/15369013-connecting-to-the-api
+- type: GettingStarted
+  url: https://support.kartra.com/en/articles/15369011-activating-your-app
+- type: Support
+  url: https://support.kartra.com/en/
+- type: Blog
+  url: https://kartra.com/learning-center/
+- type: Pricing
+  url: https://kartra.com/pricing/
+- type: SignUp
+  url: https://kartra.com/kartra-trial/
+- type: Login
+  url: https://app.kartra.com/login/
+- type: TermsOfService
+  url: https://kartra.com/terms-conditions/
+- type: PrivacyPolicy
+  url: https://kartra.com/privacy-policy/
+- type: Compliance
+  url: https://kartra.com/gdpr/
+- type: StatusPage
+  url: https://status.kartra.com/
+- type: Integrations
+  url: https://kartra.com/integrations-and-apis/
+- type: Authentication
+  url: authentication/kartra-authentication.yml
+- type: Conventions
+  url: conventions/kartra-conventions.yml
+- type: ErrorCatalog
+  url: errors/kartra-error-codes.yml
+- type: RateLimits
+  url: rate-limits/kartra-rate-limits.yml
+- type: Plans
+  url: plans/kartra-plans-pricing.yml
+- type: Sandbox
+  url: sandbox/kartra-sandbox.yml
+- type: Lifecycle
+  url: lifecycle/kartra-lifecycle.yml
+- type: ChangeLog
+  url: changelog/kartra-changelog.yml
+- type: Webhooks
+  url: asyncapi/kartra-webhooks.yml
+- type: DataModel
+  url: data-model/kartra-data-model.yml
+- type: Packages
+  url: packages/kartra-packages.yml
+- type: Conformance
+  url: conformance/kartra-conformance.yml
+- type: MCPServer
+  url: mcp/kartra-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/kartra-llms.txt
+- type: DomainSecurity
+  url: security/kartra-domain-security.yml
 x-vouched-by:
 - FirstPromoter
 - Improvado
 x-vouch-count: 2
+x-pointer-omissions:
+  note: >-
+    Pointers deliberately NOT emitted, each backed by a probe or a search that
+    found nothing. Recorded so a later pass does not re-litigate them.
+  omitted:
+  - {type: OpenAPI, reason: 'No OpenAPI, Swagger, GraphQL or AsyncAPI document found on kartra.com, app.kartra.com, api.kartra.com or support.kartra.com (probed 2026-08-12).'}
+  - {type: SDKs, reason: 'No first-party client library on npm, PyPI, RubyGems, Packagist or crates.io. Kartra ships PHP cURL snippets, not an SDK. See packages/kartra-packages.yml.'}
+  - {type: Idempotency, reason: 'Kartra documents no idempotency key, dedupe window or safe-retry contract. See conventions/kartra-conventions.yml.'}
+  - {type: Deprecation, reason: 'No deprecation policy, no advance-notice window, no RFC 8594 Sunset/Deprecation headers. Removals are announced only after they ship.'}
+  - {type: Security, reason: 'No vulnerability disclosure policy, no bug bounty, no security@ address. See security/kartra-vulnerability-disclosure.yml.'}
+  - {type: WellKnown, reason: 'No /.well-known document served by Kartra — 404 on kartra.com, 403 on app/api hosts. The one 200 is Intercom''s security.txt on the vendor-hosted help centre and is not Kartra''s. See well-known/kartra-well-known.yml.'}
+  - {type: SecurityTxt, reason: 'Same as WellKnown — the only security.txt reachable is Intercom''s, canonicalised to app.intercom.com.'}
+  - {type: AgentCard, reason: '/.well-known/agent-card.json and /.well-known/agent.json probed on all four hosts; 404 or 403 everywhere. Nothing written, per the search-only rule.'}
+  - {type: GitHubOrganization, reason: 'github.com/kartra does not exist (GitHub API 404). Kartra publishes no source.'}
+  - {type: Postman, reason: 'No Kartra-published public Postman collection or workspace found.'}
+  - {type: Roadmap, reason: 'No public roadmap; kartra.com/roadmap/ returns 404.'}
+  - {type: TrustCenter, reason: 'trust.kartra.com 307s to app.kartra.com/dashboard via the wildcard subdomain catch-all; no trust centre exists.'}
+  - {type: CLI, reason: No first-party CLI.}
+x-enrichment:
+  date: '2026-08-12'
+  status: enriched
+  artifacts_added: 23
+  pass: local-v1

@@ -1,0 +1,453 @@
+generated: '2026-08-12'
+method: searched
+source: https://support.kartra.com/en/collections/19655232-developers
+docs: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+format: proprietary
+format_note: >-
+  Kartra does NOT use RFC 9457 problem+json. It returns a flat proprietary
+  envelope and — critically — sends it with HTTP 200: "All success or error
+  messages are sent with HTTP response status code 200." The only documented
+  non-200 is 429 on rate-limit exhaustion. The numeric `type` field is the
+  stable machine-readable error identity; the `message` string is prose and
+  should not be matched on.
+envelope:
+  transport_status: 200
+  fields:
+  - {name: status, type: string, values: [Success, Error], note: 'Casing varies across the docs ("success"/"Success"); match case-insensitively.'}
+  - {name: message, type: string, note: Human-readable description. Prose, not a stable contract.}
+  - {name: type, type: string, note: 'Numeric message ID as a STRING, e.g. "244". This is the identifier to branch on.'}
+  example_error: '{"status": "Error", "message": "Lead already exists", "type": "244"}'
+  example_success: '{"status": "Success", "actions": [{"create_lead": {"status": "Success", "lead_details": {"id": "1234"}}}]}'
+  per_action_note: >-
+    On a chained call the top-level status reports the call, and each entry in
+    actions[] carries its OWN status/message/type. A 200 with top-level
+    "Success" does NOT mean every chained action succeeded — an agent must walk
+    actions[] and check each one.
+problem_count: 74
+problems:
+- type: '201'
+  title: "Connection not secure"
+  category: connection
+  http_status: 200
+  remediation: "Call was made over http. Retry over https."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '202'
+  title: "API key cannot be empty. Please get an API key first"
+  category: auth
+  http_status: 200
+  remediation: "Supply the App user's api_key."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '203'
+  title: "API key not valid. Please get an API key first"
+  category: auth
+  http_status: 200
+  remediation: "The api_key does not match an active Kartra account."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '233'
+  title: "API password not valid. Please get an API password first"
+  category: auth
+  http_status: 200
+  remediation: "The api_password does not match the supplied api_key."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '204'
+  title: "API Account inactive"
+  category: auth
+  http_status: 200
+  remediation: "The App user's Kartra account is not active."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '254'
+  title: "'cmd' is required"
+  category: request
+  http_status: 200
+  remediation: "Every actions[] entry must carry a cmd."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '206'
+  title: "email or lead id is required. Nothing done"
+  category: request
+  http_status: 200
+  remediation: "Identify the lead by email or id; if both are sent, id wins."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '223'
+  title: "'lead' not an array"
+  category: request
+  http_status: 200
+  remediation: "lead must be posted as an array/map, not a scalar."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '236'
+  title: "'get_lead' not an array"
+  category: request
+  http_status: 200
+  remediation: "get_lead must be posted as an array/map."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '224'
+  title: "'actions' not an array"
+  category: request
+  http_status: 200
+  remediation: "actions must be posted as an indexed array of {cmd,...} maps."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '238'
+  title: "App Id cannot be empty. Please get an App Id first"
+  category: app
+  http_status: 200
+  remediation: "Hard-code the developer's app_id into the integration."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '239'
+  title: "App Id is not valid. The app does not exists or is inactive"
+  category: app
+  http_status: 200
+  remediation: "The app_id is unknown or the App was deactivated."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '240'
+  title: "App Account inactive"
+  category: app
+  http_status: 200
+  remediation: "The App developer's Kartra account is not active."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '242'
+  title: "This API call was sent from an unauthorized IP"
+  category: app
+  http_status: 200
+  remediation: "Source IP is outside the App's configured allowlist."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '262'
+  title: "App does not have permission to execute this CMD"
+  category: app
+  http_status: 200
+  remediation: "The App was not approved for this command during Kartra's App review."
+  source: https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- type: '207'
+  title: "List cannot be empty"
+  category: list
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369041-action-subscribe-a-lead-to-a-list
+- type: '208'
+  title: "List cannot be empty"
+  category: list
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369045-action-unsubscribe-a-lead-to-a-list
+- type: '209'
+  title: "List does not exist"
+  category: list
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369045-action-unsubscribe-a-lead-to-a-list
+- type: '211'
+  title: "Tag cannot be empty"
+  category: tag
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369019-action-assign-tag-to-a-lead
+- type: '212'
+  title: "Tag does not exist"
+  category: tag
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369019-action-assign-tag-to-a-lead
+- type: '213'
+  title: "Tag cannot be empty"
+  category: tag
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369044-action-unassign-tag-from-a-lead
+- type: '214'
+  title: "Tag does not exist"
+  category: tag
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369044-action-unassign-tag-from-a-lead
+- type: '215'
+  title: "Points cannot be empty"
+  category: scoring
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369028-action-give-points-to-lead
+- type: '217'
+  title: "Points cannot be empty"
+  category: scoring
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369030-action-remove-points-from-lead
+- type: '219'
+  title: "Sequence does not exist"
+  category: sequence
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369042-action-subscribe-lead-to-a-sequence
+- type: '220'
+  title: "Sequence does not exist"
+  category: sequence
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369047-action-unsubscribe-lead-from-a-sequence
+- type: '225'
+  title: "Step cannot be empty"
+  category: sequence
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369042-action-subscribe-lead-to-a-sequence
+- type: '226'
+  title: "Sequence cannot be empty"
+  category: sequence
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369042-action-subscribe-lead-to-a-sequence
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15369047-action-unsubscribe-lead-from-a-sequence
+- type: '227'
+  title: "Points is not a number"
+  category: scoring
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369028-action-give-points-to-lead
+- type: '228'
+  title: "Points is not a number"
+  category: scoring
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369030-action-remove-points-from-lead
+- type: '229'
+  title: "Step has to be alphanumeric"
+  category: sequence
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369042-action-subscribe-lead-to-a-sequence
+- type: '230'
+  title: "Step does not exist"
+  category: sequence
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369042-action-subscribe-lead-to-a-sequence
+- type: '231'
+  title: "List does not exist"
+  category: list
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369041-action-subscribe-a-lead-to-a-list
+- type: '234'
+  title: "No lead found"
+  category: lead
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369017-lead-retrieving-data
+- type: '243'
+  title: "No lead found"
+  category: lead
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369018-lead-searching-creating-editing
+- type: '244'
+  title: "Lead already exists"
+  category: lead
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369018-lead-searching-creating-editing
+- type: '245'
+  title: "Lead is deleted"
+  category: lead
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369017-lead-retrieving-data
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15369018-lead-searching-creating-editing
+- type: '247'
+  title: "Transaction doesn't exist"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369025-action-get-payment-transaction-details
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15369029-action-refund-a-payment-transaction
+  - https://support.kartra.com/en/articles/15369039-action-search-payment-transaction
+- type: '248'
+  title: "Subscription doesn't exist"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369020-action-cancel-a-recurring-payment-subscription
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15369023-action-edit-recurring-payment-subscription-status
+  - https://support.kartra.com/en/articles/15369026-action-get-recurring-payment-subscription-details
+  - https://support.kartra.com/en/articles/15369040-action-search-recurring-payment-subscription
+  - https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+- type: '249'
+  title: "Transaction not linked to any recurring subscription"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369020-action-cancel-a-recurring-payment-subscription
+- type: '250'
+  title: "Transaction outside refund period"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369029-action-refund-a-payment-transaction
+- type: '251'
+  title: "Transaction already refunded"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369029-action-refund-a-payment-transaction
+- type: '252'
+  title: "Subscription already cancelled"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369020-action-cancel-a-recurring-payment-subscription
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15369023-action-edit-recurring-payment-subscription-status
+- type: '253'
+  title: "This type of transaction cannot be refunded or cancelled"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369020-action-cancel-a-recurring-payment-subscription
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15369029-action-refund-a-payment-transaction
+- type: '255'
+  title: "Calendar cannot be empty"
+  category: calendar
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369021-action-cancel-subscription-to-calendar
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15369043-action-subscribe-lead-to-calendar
+- type: '256'
+  title: "Class cannot be empty"
+  category: calendar
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369021-action-cancel-subscription-to-calendar
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15369043-action-subscribe-lead-to-calendar
+- type: '257'
+  title: "Calendar does not exist"
+  category: calendar
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369021-action-cancel-subscription-to-calendar
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15369043-action-subscribe-lead-to-calendar
+- type: '258'
+  title: "Class does not exist"
+  category: calendar
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369021-action-cancel-subscription-to-calendar
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15369043-action-subscribe-lead-to-calendar
+- type: '259'
+  title: "No active/pending calendar subscription for this lead"
+  category: lead
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369021-action-cancel-subscription-to-calendar
+- type: '260'
+  title: "Invalid date format"
+  category: calendar
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369043-action-subscribe-lead-to-calendar
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+- type: '261'
+  title: "Date is in the past"
+  category: calendar
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369043-action-subscribe-lead-to-calendar
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+- type: '263'
+  title: "Custom Field name can only contain letters, numbers, dashes or underscores"
+  category: custom-field
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369022-action-create-custom-fields
+- type: '264'
+  title: "Custom Field already exists or not allowed"
+  category: custom-field
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369022-action-create-custom-fields
+- type: '265'
+  title: "Custom Field cannot be empty"
+  category: custom-field
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369022-action-create-custom-fields
+- type: '266'
+  title: "Refund has failed"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369029-action-refund-a-payment-transaction
+- type: '267'
+  title: "Cancellation has failed"
+  category: request
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369020-action-cancel-a-recurring-payment-subscription
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15369023-action-edit-recurring-payment-subscription-status
+- type: '268'
+  title: "Invalid amount"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369029-action-refund-a-payment-transaction
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+- type: '269'
+  title: "Custom Field type not valid"
+  category: custom-field
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369022-action-create-custom-fields
+- type: '270'
+  title: "Options not an array"
+  category: custom-field
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369022-action-create-custom-fields
+- type: '271'
+  title: "Wrong custom field format"
+  category: custom-field
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369018-lead-searching-creating-editing
+- type: '272'
+  title: "Option cannot be empty"
+  category: custom-field
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369022-action-create-custom-fields
+- type: '273'
+  title: "Options must have two or more elements"
+  category: custom-field
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369022-action-create-custom-fields
+- type: '274'
+  title: "Wrong status"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369023-action-edit-recurring-payment-subscription-status
+- type: '275'
+  title: "Subscriptions cancelled or terminated cannot be updated"
+  category: calendar
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369023-action-edit-recurring-payment-subscription-status
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+- type: '276'
+  title: "Quantity must be between 1 and 9,999"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+- type: '277'
+  title: "Price must be between 1.00 and 9,999.99"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+- type: '278'
+  title: "Invalid number"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+- type: '280'
+  title: "Invalid recurring period"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+- type: '281'
+  title: "Recurrence cannot be changed"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+- type: '282'
+  title: "Incorrect number of installments"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+- type: '283'
+  title: "Wrong product id or price point"
+  category: scoring
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+- type: '284'
+  title: "Paypal transactions cannot be modified"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15369023-action-edit-recurring-payment-subscription-status
+  also_documented_in:
+  - https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+- type: '285'
+  title: "No editable parameters for subscription"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+- type: '290'
+  title: "Tax must be between 0 and 100"
+  category: billing
+  http_status: 200
+  source: https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+gaps:
+- No RFC 9457 application/problem+json representation.
+- Errors are not surfaced through HTTP status codes, so standard HTTP client error handling is inert against this API.
+- Codes 205, 210, 216, 218, 221, 222, 232, 235, 237, 241, 246, 279, 286-289 are absent from the public docs; the registry is published per-action, not as one consolidated table, so the numbering has gaps we cannot fill without inventing them.
+- Duplicate meanings carry distinct codes depending on the command (e.g. "List cannot be empty" is 207 on subscribe and 208 on unsubscribe; "No lead found" is 234 on retrieve and 243 on search).

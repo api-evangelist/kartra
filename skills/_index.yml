@@ -1,0 +1,25 @@
+generated: '2026-08-12'
+method: generated
+source: >-
+  Grounded in the 29 `cmd` values and the event catalogue Kartra publishes in
+  its Developers help-centre collection. Kartra publishes no OpenAPI, so every
+  command name here was transcribed from the provider's own documentation and
+  each skill cites the article it came from. No operation is invented.
+api: https://app.kartra.com/api
+skills:
+- file: kartra-create-lead-and-tag.md
+  name: Create a Kartra lead and tag it
+  operations: [create_lead, assign_tag, subscribe_lead_to_list, search_lead]
+  source: https://support.kartra.com/en/articles/15369018-lead-searching-creating-editing
+- file: kartra-read-and-update-contact.md
+  name: Read and update a Kartra contact
+  operations: [get_lead, search_lead, edit_lead, retrieve_custom_fields, retrieve_account_tags, retrieve_account_lists]
+  source: https://support.kartra.com/en/articles/15369017-lead-retrieving-data
+- file: kartra-refund-and-reconcile.md
+  name: Refund a Kartra transaction and reconcile
+  operations: [retrieve_transactions_from_lead, get_transaction_details, search_transaction, refund_transaction, retrieve_subscriptions_from_lead, get_subscription_details, cancel_transaction, modify_subscription_status, edit_subscription]
+  source: https://support.kartra.com/en/articles/15369029-action-refund-a-payment-transaction
+- file: kartra-consume-events.md
+  name: Consume Kartra events safely
+  operations: []
+  source: https://support.kartra.com/en/articles/15369054-activating-the-outbound-api

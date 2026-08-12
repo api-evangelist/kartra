@@ -1,0 +1,93 @@
+generated: '2026-08-12'
+method: searched
+source: https://kartra.com/pricing/
+docs: https://kartra.com/pricing/
+currency: USD
+billing_periods: [monthly, annual]
+plan_count: 4
+api_access:
+  metered: false
+  tier_gated: false
+  note: >-
+    Kartra does not price or meter the developer API. It is not listed as a plan
+    feature and no tier is named as a prerequisite, so API access appears to
+    follow any active subscription. The API rate limit (20 req/s) is attached to
+    the developer's App, not to the account's plan — the same ceiling regardless
+    of tier. Plan limits bite on the DATA the API touches (contacts, products,
+    pages), not on call volume.
+plans:
+- name: Essentials
+  price_monthly: 59
+  price_annual_per_month: 52
+  currency: USD
+  limits:
+    contacts: 500
+    emails_per_month: 10000
+    custom_domains: 1
+    team_members: 0
+    products: 1
+    pages: 5
+    videos: unlimited
+    memberships_courses: 1
+    kartra_ai_uses: 30
+    helpdesk: false
+- name: Starter
+  price_monthly: 119
+  price_annual_per_month: 99
+  currency: USD
+  limits:
+    contacts: 2500
+    emails_per_month: unlimited
+    custom_domains: 1
+    team_members: 5
+    products: unlimited
+    pages: unlimited
+    videos: unlimited
+    memberships_courses: unlimited
+    kartra_ai_uses: 100
+    helpdesk: false
+- name: Growth
+  price_monthly: 229
+  price_annual_per_month: 189
+  currency: USD
+  limits:
+    contacts: 12500
+    emails_per_month: unlimited
+    custom_domains: 3
+    team_members: 10
+    products: unlimited
+    pages: unlimited
+    videos: unlimited
+    memberships_courses: unlimited
+    kartra_ai_uses: 250
+    helpdesk: true
+- name: Professional
+  price_monthly: 549
+  price_annual_per_month: 429
+  currency: USD
+  limits:
+    contacts: 25000
+    emails_per_month: unlimited
+    custom_domains: 5
+    team_members: 10
+    products: unlimited
+    pages: unlimited
+    videos: unlimited
+    memberships_courses: unlimited
+    kartra_ai_uses: 250
+    helpdesk: true
+    helpdesk_live_chat: true
+overage:
+  published: false
+  note: >-
+    No overage rate is published for exceeding the contact ceiling. The pricing
+    page presents contact tiers as plan boundaries rather than metered usage.
+free_tier: false
+trial:
+  offered: true
+  url: https://kartra.com/trial-50-off/
+  note: A promotional trial landing page is live; terms are on that page rather than on /pricing/.
+enterprise_contact_only: false
+gaps:
+- No machine-readable pricing or catalogue endpoint; the tier table is rendered HTML only.
+- The pricing page does not state whether API access differs by tier, so the neutral reading above is inferred from its absence.

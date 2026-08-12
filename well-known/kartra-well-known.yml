@@ -1,0 +1,69 @@
+generated: '2026-08-12'
+method: probed
+source: live GET of /.well-known/* on every Kartra host named in apis.yml
+summary: >-
+  Kartra serves no /.well-known/ discovery document of its own. Every canonical
+  path was probed on kartra.com (the marketing/website host), app.kartra.com
+  (the API host that receives every inbound API call) and api.kartra.com. All
+  returned 404 on kartra.com and 403 on the app/api hosts, whose edge blocks the
+  entire /.well-known/ prefix. The ONE 200 in this probe is Intercom's own
+  security.txt served from support.kartra.com — the vendor-hosted help centre —
+  and it is Intercom's disclosure programme, not Kartra's (its own Canonical:
+  line points at app.intercom.com). It is recorded below for completeness and
+  explicitly NOT credited to Kartra: no WellKnown, SecurityTxt or Security
+  pointer is emitted from this artifact.
+hosts:
+- host: kartra.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /security.txt, status: 404}
+- host: app.kartra.com
+  note: >-
+    API host (POST https://app.kartra.com/api). The edge returns 403 Forbidden
+    for the whole /.well-known/ prefix rather than 404, so absence here is a
+    blocked path, not a missing file.
+  documents:
+  - {path: /.well-known/security.txt, status: 403}
+  - {path: /.well-known/openid-configuration, status: 403}
+  - {path: /.well-known/oauth-authorization-server, status: 403}
+  - {path: /.well-known/api-catalog, status: 403}
+  - {path: /.well-known/ai-plugin.json, status: 403}
+  - {path: /.well-known/agent-card.json, status: 403}
+  - {path: /.well-known/agent.json, status: 403}
+- host: api.kartra.com
+  note: >-
+    Resolves to the same application edge as app.kartra.com; the bare host 307s
+    into the Auth0 login flow at login.kartra.com.
+  documents:
+  - {path: /.well-known/security.txt, status: 403}
+  - {path: /.well-known/openid-configuration, status: 403}
+  - {path: /.well-known/oauth-authorization-server, status: 403}
+  - {path: /.well-known/api-catalog, status: 403}
+  - {path: /.well-known/agent-card.json, status: 403}
+  - {path: /.well-known/agent.json, status: 403}
+- host: support.kartra.com
+  note: >-
+    Vendor-hosted (Intercom) help centre. The 200 below is INTERCOM's
+    security.txt, not Kartra's.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: kartra-support-intercom-security.txt
+    vendor: Intercom
+    canonical_declared: https://app.intercom.com/.well-known/security.txt
+    credited_to_provider: false
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+pointer_emitted: false
+pointer_reason: >-
+  No 200 carrying a document Kartra itself authored. Per the enrichment
+  contract a WellKnown/SecurityTxt pointer asserts the PROVIDER serves that
+  surface; a vendor's security.txt on a vendor-hosted docs subdomain does not
+  satisfy that.

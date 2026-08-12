@@ -1,0 +1,76 @@
+generated: '2026-08-12'
+method: searched
+source: https://support.kartra.com/en/collections/19655235-release-notes
+docs: https://support.kartra.com/en/collections/19655235-release-notes
+scheme: semver-like
+cadence: roughly weekly
+current_version: 9.75.0
+current_date: '2026-07-21'
+total_published_entries: 128
+scope: >-
+  Product release notes for the Kartra platform. They are NOT an API changelog —
+  the developer API is unversioned and API-affecting changes are not called out
+  as such. Only the recent window is captured here; the live collection is the
+  source of truth.
+entries:
+- version: 9.75.0
+  date: '2026-07-21'
+  breaking: true
+  highlights:
+  - Removed the Skype option from Kartra Helpdesk channels; active Skype channels on existing Helpdesks were removed automatically, and Helpdesks where Skype was the only channel had a Support ticket channel added to preserve customer access. (17469)
+  - Removed the Facebook Comments widget from the page builder; existing components display as empty spaces and can be deleted at any time. (17475)
+  url: https://support.kartra.com/en/articles/16021519-2026-jul-21-kartra-9-75-0-release-notes
+- version: 9.74.0
+  date: '2026-07-14'
+  breaking: false
+  highlights:
+  - Fixed special characters in customer details causing errors during Square recurring payments. (17910)
+  - Logo changes on Legacy Checkouts now save as expected. (17929)
+  - Restored missing Norway state dropdown entries on New Checkouts. (17928)
+  - Colour picking options restored in the Product editor. (17972)
+  - Sequence builder no longer requires a refresh after a temporary error blocking step creation and cloning. (17958)
+  url: https://support.kartra.com/en/articles/15934484-2026-jul-14-kartra-9-74-0-release-notes
+- version: 9.73.0
+  date: '2026-07-07'
+  breaking: false
+  highlights:
+  - 'New "Paid - New Checkout" option for Calendar registration alongside Free and Legacy Checkout, bringing checkout messages, Klarna, Google Pay and Apple Pay and implicit billing terms to calendar registration. (16158, 17343)'
+  - New Checkouts can now be added to Membership sidebars; the previous option is relabelled "Legacy Checkout form". (16157)
+  url: https://support.kartra.com/en/articles/15850501-2026-jul-7-kartra-9-73-0-release-notes
+- version: 9.71.0
+  date: '2026-06-30'
+  breaking: false
+  highlights:
+  - Buffer time before and/or after calendar appointments (5, 10, 15 or 30 minutes). (17847)
+  - Calendar appointment rescheduling with automatic notifications to host and client. (14894)
+  - Calendar class cloning. (14895)
+  - Faster schedule-step loading for calendars with many classes; classes load on demand. (17334)
+  - Lead profile Calendars tab now sorts the closest upcoming event first. (17852)
+  url: https://support.kartra.com/en/articles/15685573-2026-jun-30-kartra-9-71-0-release-notes
+- version: 9.70.0
+  date: '2026-06-29'
+  breaking: false
+  highlights:
+  - Selecting PayPal as the first or only gateway on a Product now auto-disables the default test credit card gateway. (17836)
+  - Pages with preloaded pop-up checkouts scroll normally; checkout analytics now begin when the checkout becomes visible rather than on preload. (17834)
+  - Resolved a rare double-submission of a sale on legacy checkouts. (17874)
+  - Cloned Kartra-hosted checkouts with straight-through payments work as pop-ups and embedded forms. (17860)
+  url: https://support.kartra.com/en/articles/15693266-2026-jun-29-kartra-9-70-0-release-notes
+- version: 9.69.2
+  date: '2026-06-24'
+  breaking: false
+  highlights:
+  - Fixed special-character handling affecting some Authorize.net integrations. (17853)
+  url: https://support.kartra.com/en/articles/15633769-2026-jun-24-kartra-9-69-2-release-notes
+api_relevant_history:
+- version: 8.8.0
+  date: '2025-06-03'
+  note: >-
+    Zapier integration change — "Search Lead" and "Create New Lead" were merged
+    into a single find-or-create action. Notably the underlying API was NOT given
+    the same upsert behaviour: search_lead and create_lead remain separate
+    commands with no upsert, so the Zapier surface and the developer API diverge.
+gaps:
+- No dedicated API changelog; API-affecting changes are not distinguished from UI changes.
+- No RSS/Atom/JSON feed for release notes — the collection is an Intercom help-centre page only.
+- Entries carry internal ticket numbers (17469, 17475) that are not publicly resolvable.

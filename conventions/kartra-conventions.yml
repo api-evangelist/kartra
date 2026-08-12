@@ -1,0 +1,163 @@
+generated: '2026-08-12'
+method: searched
+source: https://support.kartra.com/en/collections/19655232-developers
+docs:
+- https://support.kartra.com/en/articles/15369013-connecting-to-the-api
+- https://support.kartra.com/en/articles/15369018-lead-searching-creating-editing
+- https://support.kartra.com/en/articles/15369014-success-and-error-confirmation-messages
+- https://support.kartra.com/en/articles/15369015-api-limits
+summary: >-
+  Kartra's inbound API is a single-endpoint, form-encoded RPC surface, not a
+  REST API. Every call is a POST to https://app.kartra.com/api carrying three
+  credentials plus a `lead` (or `get_lead`) map and an indexed `actions` array
+  of {cmd, ...} instructions. There are no resource paths, no HTTP verbs beyond
+  POST, no status-code semantics and no hypermedia. An agent integrating with
+  Kartra should treat `cmd` as the operation identifier.
+
+shape:
+  style: single-endpoint-rpc
+  endpoint: https://app.kartra.com/api
+  method: POST
+  request_encoding: application/x-www-form-urlencoded
+  response_encoding: application/json
+  operation_selector: actions[].cmd
+  batching:
+    supported: true
+    unit: one lead per call
+    note: >-
+      Multiple commands may be chained in one call, but they must all target the
+      SAME lead. "Each API call must focus on one specific lead — you can
+      perform multiple actions on that lead within a single call, but you cannot
+      target multiple leads in one request." Adding or editing N leads costs N
+      calls.
+    ordering_rule: >-
+      If the call includes create_lead, edit_lead or search_lead, that command
+      MUST be actions[0]. Anything else first and the system cannot resolve
+      which lead the remaining commands apply to.
+
+authentication:
+  style: three-credential-form-fields
+  fields: [app_id, api_key, api_password]
+  location: request body
+  detail: authentication/kartra-authentication.yml
+
+identity_resolution:
+  keys: [id, email]
+  precedence: id
+  note: >-
+    A lead is addressed by id or email. If both are supplied the system
+    prioritises the id. Neither value is opaque — the email doubles as a natural
+    key, which means an agent holding only an email can still act.
+  create_vs_edit: >-
+    Kartra does NOT upsert. If no lead matches, the call fails with "No lead
+    found" (243) and the caller must issue create_lead first, then a second call
+    for the intended action — or chain CREATE + action in one request.
+
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    Kartra documents NO idempotency key, no request-id echo and no dedupe
+    window. Retrying a chained create_lead + assign_tag call after a timeout
+    will fail on the create (244 "Lead already exists") while leaving the
+    caller unsure whether the tag was applied. The safe-retry pattern the docs
+    imply is search_lead first, then branch — which is not atomic. Because
+    there is no idempotency contract, NO Idempotency pointer is emitted for
+    this provider.
+  agent_guidance: >-
+    Treat every write as at-most-once. Before retrying a failed write, re-read
+    with get_lead and reconcile, rather than replaying the request.
+
+pagination:
+  supported: false
+  note: >-
+    None of the retrieve_* commands (retrieve_account_lists,
+    retrieve_account_tags, retrieve_account_sequences, retrieve_account_pages,
+    retrieve_custom_fields, retrieve_transactions_from_lead,
+    retrieve_subscriptions_from_lead) document a page, limit, offset or cursor
+    parameter. Account-wide collections return in full. There is no published
+    ceiling on response size and no way to page a large account.
+
+filtering_and_expansion:
+  sparse_fields: false
+  expansion: false
+  note: >-
+    get_lead returns the complete lead profile including every custom field
+    ("All custom fields will be returned, even if they are empty for a specific
+    lead"), plus tags, list subscriptions, sequences and memberships. The
+    payload is not selectable.
+
+custom_fields:
+  identifier: field_identifier
+  note: >-
+    Custom fields are addressed by a text identifier that must already exist in
+    the account. "If the system cannot find the corresponding custom name, it
+    will ignore it" — a silent no-op, not an error. Agents should call
+    retrieve_custom_fields first and verify the identifier exists rather than
+    trusting a Success response.
+  value_types:
+    input_field: string
+    text_area: string
+    drop_down: integer option id
+    radio_button: integer option id
+    checkbox: array of option ids
+    clear: empty string
+
+error_envelope:
+  transport_status: 200
+  fields: [status, message, type]
+  format: proprietary
+  rfc9457: false
+  detail: errors/kartra-error-codes.yml
+  critical_note: >-
+    HTTP 200 is returned for authentication failure, validation failure and
+    business-rule rejection alike. HTTP status is NOT the success signal on this
+    API — the body's `status` field is, and on chained calls each entry in
+    actions[] carries its own status.
+
+rate_limit_signaling:
+  headers: none
+  status_on_exhaustion: 429
+  detail: rate-limits/kartra-rate-limits.yml
+
+versioning:
+  api_versioned: false
+  scheme: none
+  note: >-
+    The API endpoint carries no version segment, no version header and no date
+    pinning. The Kartra PLATFORM is versioned (semver-style release notes, 9.75.0
+    as of 2026-07-21) but that version is not addressable from the API and there
+    is no way for a client to pin behaviour.
+  detail: lifecycle/kartra-lifecycle.yml
+
+tracing:
+  request_id: false
+  note: No request-id or correlation header is documented on request or response.
+
+timezone:
+  default: EST
+  note: >-
+    Every timestamp Kartra returns (date_joined, gdpr_lead_status_date,
+    transaction_date) is documented as EST with format 'YYYY-MM-DD HH:MM:SS'.
+    Values are naive — no offset, no Z suffix — so a consumer must apply the
+    EST assumption itself.
+
+null_convention:
+  inbound: empty string clears a value
+  outbound_ipn: >-
+    "Any variable with an empty value will be posted as 'N/A.'" The IPN system
+    substitutes the literal string N/A rather than omitting the key or sending
+    null, so consumers must string-compare against "N/A".
+
+events:
+  outbound_api: asyncapi/kartra-webhooks.yml
+  ipn: asyncapi/kartra-webhooks.yml
+  note: Kartra's event surface is POST-JSON callbacks to a URL configured in the account UI. No signing, no replay protection documented.
+
+cross_links:
+  authentication: authentication/kartra-authentication.yml
+  errors: errors/kartra-error-codes.yml
+  lifecycle: lifecycle/kartra-lifecycle.yml
+  rate_limits: rate-limits/kartra-rate-limits.yml
+  sandbox: sandbox/kartra-sandbox.yml
+  data_model: data-model/kartra-data-model.yml
