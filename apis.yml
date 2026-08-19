@@ -21,7 +21,7 @@ x-type: company
 x-source: harvest:marketing-integration-graph
 x-tier: enriched
 x-tier-reason: enrichment-pipeline
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-08-12'
 modified: '2026-08-12'
 tags:
