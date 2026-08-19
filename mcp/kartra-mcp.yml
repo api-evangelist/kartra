@@ -2,74 +2,203 @@ generated: '2026-08-12'
 method: derived
 status: candidate
 source: https://support.kartra.com/en/collections/19655232-developers
-summary: >-
-  No official hosted or remote Model Context Protocol server was found for
-  Kartra. mcp.kartra.com resolves only to the wildcard catch-all that 307s every
-  unknown subdomain into the Auth0 login flow; /mcp on kartra.com and
-  app.kartra.com both 404; no Kartra server appears in the public MCP
-  registries or under @modelcontextprotocol on npm. The candidate tool set below
-  is DERIVED one-to-one from the 29 `cmd` values Kartra documents for its
-  inbound API, plus the top-level `get_lead` request. It is a proposal for an
-  agent-facing surface and is NOT published by Kartra.
+summary: No official hosted or remote Model Context Protocol server was found for Kartra. mcp.kartra.com
+  resolves only to the wildcard catch-all that 307s every unknown subdomain into the Auth0 login flow;
+  /mcp on kartra.com and app.kartra.com both 404; no Kartra server appears in the public MCP registries
+  or under @modelcontextprotocol on npm. The candidate tool set below is DERIVED one-to-one from the 29
+  `cmd` values Kartra documents for its inbound API, plus the top-level `get_lead` request. It is a proposal
+  for an agent-facing surface and is NOT published by Kartra.
 server: null
 transport: null
 url: null
 auth:
   type: apiKey
   location: request body
-  fields: [app_id, api_key, api_password]
-  note: >-
-    Any MCP server fronting Kartra must carry three credentials, two of which
-    (api_key, api_password) belong to the END USER's Kartra account while app_id
-    belongs to the integration developer. That split is unusual for an MCP
-    deployment and means a shared hosted server cannot use one credential set
-    for all users.
+  fields:
+  - app_id
+  - api_key
+  - api_password
+  note: Any MCP server fronting Kartra must carry three credentials, two of which (api_key, api_password)
+    belong to the END USER's Kartra account while app_id belongs to the integration developer. That split
+    is unusual for an MCP deployment and means a shared hosted server cannot use one credential set for
+    all users.
 backing_surface:
   endpoint: https://app.kartra.com/api
   method: POST
   encoding: application/x-www-form-urlencoded
   operation_selector: actions[].cmd
-  constraint: >-
-    Every call targets exactly ONE lead. A tool set derived from these commands
-    inherits that constraint — there is no batch or multi-subject tool possible.
-input_schema_note: >-
-  Kartra publishes no OpenAPI, so no tool below can inherit a machine-readable
-  inputSchema. Parameters are documented in prose tables per article; the
-  `source` on each tool is where a real schema would have to be transcribed
-  from by hand.
+  constraint: Every call targets exactly ONE lead. A tool set derived from these commands inherits that
+    constraint — there is no batch or multi-subject tool possible.
+input_schema_note: Kartra publishes no OpenAPI, so no tool below can inherit a machine-readable inputSchema.
+  Parameters are documented in prose tables per article; the `source` on each tool is where a real schema
+  would have to be transcribed from by hand.
 candidate_tool_count: 30
 candidate_tools:
-- {name: get_lead, cmd: null, category: lead, description: 'Retrieve the full profile of one lead by email, including custom fields, tags, lists, sequences and memberships.', source: 'https://support.kartra.com/en/articles/15369017-lead-retrieving-data', note: 'Top-level `get_lead` request key, not an actions[] cmd.'}
-- {name: search_lead, cmd: search_lead, category: lead, description: Locate an existing lead by id or email., source: 'https://support.kartra.com/en/articles/15369018-lead-searching-creating-editing'}
-- {name: create_lead, cmd: create_lead, category: lead, description: Create a new lead with profile fields and custom field values., source: 'https://support.kartra.com/en/articles/15369018-lead-searching-creating-editing'}
-- {name: edit_lead, cmd: edit_lead, category: lead, description: Update profile fields on an existing lead., source: 'https://support.kartra.com/en/articles/15369018-lead-searching-creating-editing'}
-- {name: assign_tag, cmd: assign_tag, category: tag, description: Assign a tag to a lead., source: 'https://support.kartra.com/en/articles/15369019-action-assign-tag-to-a-lead'}
-- {name: unassign_tag, cmd: unassign_tag, category: tag, description: Remove a tag from a lead., source: 'https://support.kartra.com/en/articles/15369044-action-unassign-tag-from-a-lead'}
-- {name: retrieve_account_tags, cmd: retrieve_account_tags, category: tag, description: List every tag in the account., source: 'https://support.kartra.com/en/articles/15369036-action-retrieve-all-the-tags-in-your-account'}
-- {name: subscribe_lead_to_list, cmd: subscribe_lead_to_list, category: list, description: Subscribe a lead to a list., source: 'https://support.kartra.com/en/articles/15369041-action-subscribe-a-lead-to-a-list'}
-- {name: unsubscribe_lead_from_list, cmd: unsubscribe_lead_from_list, category: list, description: Unsubscribe a lead from a list., source: 'https://support.kartra.com/en/articles/15369045-action-unsubscribe-a-lead-to-a-list'}
-- {name: retrieve_account_lists, cmd: retrieve_account_lists, category: list, description: List every list in the account., source: 'https://support.kartra.com/en/articles/15369032-action-retrieve-all-the-lists-in-your-account'}
-- {name: subscribe_lead_to_sequence_at_step, cmd: subscribe_lead_to_sequence_at_step, category: sequence, description: Subscribe a lead to an automation sequence at a specific step., source: 'https://support.kartra.com/en/articles/15369042-action-subscribe-lead-to-a-sequence'}
-- {name: unsubscribe_lead_from_sequence, cmd: unsubscribe_lead_from_sequence, category: sequence, description: Unsubscribe a lead from a sequence., source: 'https://support.kartra.com/en/articles/15369047-action-unsubscribe-lead-from-a-sequence'}
-- {name: retrieve_account_sequences, cmd: retrieve_account_sequences, category: sequence, description: List every sequence in the account., source: 'https://support.kartra.com/en/articles/15369035-action-retrieve-all-the-sequences-in-your-account'}
-- {name: give_points_to_lead, cmd: give_points_to_lead, category: scoring, description: Add lead-score points to a lead., source: 'https://support.kartra.com/en/articles/15369028-action-give-points-to-lead'}
-- {name: remove_points_from_lead, cmd: remove_points_from_lead, category: scoring, description: Subtract lead-score points from a lead., source: 'https://support.kartra.com/en/articles/15369030-action-remove-points-from-lead'}
-- {name: create_custom_field, cmd: create_custom_field, category: custom-field, description: 'Create a custom field (input_field, text_area, drop_down, radio_button or checkbox).', source: 'https://support.kartra.com/en/articles/15369022-action-create-custom-fields'}
-- {name: retrieve_custom_fields, cmd: retrieve_custom_fields, category: custom-field, description: List every custom field in the account with its identifier, type and options., source: 'https://support.kartra.com/en/articles/15369031-action-retrieve-all-the-custom-fields-in-your-account'}
-- {name: retrieve_account_pages, cmd: retrieve_account_pages, category: content, description: List every page in the account., source: 'https://support.kartra.com/en/articles/15369033-action-retrieve-all-the-pages-in-your-account'}
-- {name: calendar_subscribe, cmd: calendar_subscribe, category: calendar, description: Book a lead into a calendar class at a given date and time., source: 'https://support.kartra.com/en/articles/15369043-action-subscribe-lead-to-calendar'}
-- {name: calendar_cancel, cmd: calendar_cancel, category: calendar, description: Cancel a lead's calendar booking., source: 'https://support.kartra.com/en/articles/15369021-action-cancel-subscription-to-calendar'}
-- {name: search_transaction, cmd: search_transaction, category: billing, description: Search for a payment transaction., source: 'https://support.kartra.com/en/articles/15369039-action-search-payment-transaction'}
-- {name: get_transaction_details, cmd: get_transaction_details, category: billing, description: Retrieve the full detail of one payment transaction., source: 'https://support.kartra.com/en/articles/15369025-action-get-payment-transaction-details'}
-- {name: retrieve_transactions_from_lead, cmd: retrieve_transactions_from_lead, category: billing, description: List all payment transactions belonging to a lead., source: 'https://support.kartra.com/en/articles/15369037-action-retrieve-payment-transactions-from-lead'}
-- {name: refund_transaction, cmd: refund_transaction, category: billing, description: Refund a payment transaction in full or in part., source: 'https://support.kartra.com/en/articles/15369029-action-refund-a-payment-transaction', consequence: irreversible-money-movement}
-- {name: search_subscription, cmd: search_subscription, category: billing, description: Search for a recurring payment subscription., source: 'https://support.kartra.com/en/articles/15369040-action-search-recurring-payment-subscription'}
-- {name: get_subscription_details, cmd: get_subscription_details, category: billing, description: Retrieve the full detail of one recurring payment subscription., source: 'https://support.kartra.com/en/articles/15369026-action-get-recurring-payment-subscription-details'}
-- {name: retrieve_subscriptions_from_lead, cmd: retrieve_subscriptions_from_lead, category: billing, description: List all recurring payment subscriptions belonging to a lead., source: 'https://support.kartra.com/en/articles/15369038-action-retrieve-recurring-payment-subscriptions-from-lead'}
-- {name: modify_subscription_status, cmd: modify_subscription_status, category: billing, description: Change the status of a recurring payment subscription., source: 'https://support.kartra.com/en/articles/15369023-action-edit-recurring-payment-subscription-status', consequence: billing-state-change}
-- {name: edit_subscription, cmd: edit_subscription, category: billing, description: 'Edit subscription settings — quantity, price, recurring period, installments, tax.', source: 'https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings', consequence: billing-state-change}
-- {name: cancel_transaction, cmd: cancel_transaction, category: billing, description: Cancel a recurring payment subscription., source: 'https://support.kartra.com/en/articles/15369020-action-cancel-a-recurring-payment-subscription', consequence: billing-state-change}
+- name: get_lead
+  cmd: null
+  category: lead
+  description: Retrieve the full profile of one lead by email, including custom fields, tags, lists, sequences
+    and memberships.
+  source: https://support.kartra.com/en/articles/15369017-lead-retrieving-data
+  note: Top-level `get_lead` request key, not an actions[] cmd.
+- name: search_lead
+  cmd: search_lead
+  category: lead
+  description: Locate an existing lead by id or email.
+  source: https://support.kartra.com/en/articles/15369018-lead-searching-creating-editing
+- name: create_lead
+  cmd: create_lead
+  category: lead
+  description: Create a new lead with profile fields and custom field values.
+  source: https://support.kartra.com/en/articles/15369018-lead-searching-creating-editing
+- name: edit_lead
+  cmd: edit_lead
+  category: lead
+  description: Update profile fields on an existing lead.
+  source: https://support.kartra.com/en/articles/15369018-lead-searching-creating-editing
+- name: assign_tag
+  cmd: assign_tag
+  category: tag
+  description: Assign a tag to a lead.
+  source: https://support.kartra.com/en/articles/15369019-action-assign-tag-to-a-lead
+- name: unassign_tag
+  cmd: unassign_tag
+  category: tag
+  description: Remove a tag from a lead.
+  source: https://support.kartra.com/en/articles/15369044-action-unassign-tag-from-a-lead
+- name: retrieve_account_tags
+  cmd: retrieve_account_tags
+  category: tag
+  description: List every tag in the account.
+  source: https://support.kartra.com/en/articles/15369036-action-retrieve-all-the-tags-in-your-account
+- name: subscribe_lead_to_list
+  cmd: subscribe_lead_to_list
+  category: list
+  description: Subscribe a lead to a list.
+  source: https://support.kartra.com/en/articles/15369041-action-subscribe-a-lead-to-a-list
+- name: unsubscribe_lead_from_list
+  cmd: unsubscribe_lead_from_list
+  category: list
+  description: Unsubscribe a lead from a list.
+  source: https://support.kartra.com/en/articles/15369045-action-unsubscribe-a-lead-to-a-list
+- name: retrieve_account_lists
+  cmd: retrieve_account_lists
+  category: list
+  description: List every list in the account.
+  source: https://support.kartra.com/en/articles/15369032-action-retrieve-all-the-lists-in-your-account
+- name: subscribe_lead_to_sequence_at_step
+  cmd: subscribe_lead_to_sequence_at_step
+  category: sequence
+  description: Subscribe a lead to an automation sequence at a specific step.
+  source: https://support.kartra.com/en/articles/15369042-action-subscribe-lead-to-a-sequence
+- name: unsubscribe_lead_from_sequence
+  cmd: unsubscribe_lead_from_sequence
+  category: sequence
+  description: Unsubscribe a lead from a sequence.
+  source: https://support.kartra.com/en/articles/15369047-action-unsubscribe-lead-from-a-sequence
+- name: retrieve_account_sequences
+  cmd: retrieve_account_sequences
+  category: sequence
+  description: List every sequence in the account.
+  source: https://support.kartra.com/en/articles/15369035-action-retrieve-all-the-sequences-in-your-account
+- name: give_points_to_lead
+  cmd: give_points_to_lead
+  category: scoring
+  description: Add lead-score points to a lead.
+  source: https://support.kartra.com/en/articles/15369028-action-give-points-to-lead
+- name: remove_points_from_lead
+  cmd: remove_points_from_lead
+  category: scoring
+  description: Subtract lead-score points from a lead.
+  source: https://support.kartra.com/en/articles/15369030-action-remove-points-from-lead
+- name: create_custom_field
+  cmd: create_custom_field
+  category: custom-field
+  description: Create a custom field (input_field, text_area, drop_down, radio_button or checkbox).
+  source: https://support.kartra.com/en/articles/15369022-action-create-custom-fields
+- name: retrieve_custom_fields
+  cmd: retrieve_custom_fields
+  category: custom-field
+  description: List every custom field in the account with its identifier
+  type and options.: null
+  source: https://support.kartra.com/en/articles/15369031-action-retrieve-all-the-custom-fields-in-your-account
+- name: retrieve_account_pages
+  cmd: retrieve_account_pages
+  category: content
+  description: List every page in the account.
+  source: https://support.kartra.com/en/articles/15369033-action-retrieve-all-the-pages-in-your-account
+- name: calendar_subscribe
+  cmd: calendar_subscribe
+  category: calendar
+  description: Book a lead into a calendar class at a given date and time.
+  source: https://support.kartra.com/en/articles/15369043-action-subscribe-lead-to-calendar
+- name: calendar_cancel
+  cmd: calendar_cancel
+  category: calendar
+  description: Cancel a lead's calendar booking.
+  source: https://support.kartra.com/en/articles/15369021-action-cancel-subscription-to-calendar
+- name: search_transaction
+  cmd: search_transaction
+  category: billing
+  description: Search for a payment transaction.
+  source: https://support.kartra.com/en/articles/15369039-action-search-payment-transaction
+- name: get_transaction_details
+  cmd: get_transaction_details
+  category: billing
+  description: Retrieve the full detail of one payment transaction.
+  source: https://support.kartra.com/en/articles/15369025-action-get-payment-transaction-details
+- name: retrieve_transactions_from_lead
+  cmd: retrieve_transactions_from_lead
+  category: billing
+  description: List all payment transactions belonging to a lead.
+  source: https://support.kartra.com/en/articles/15369037-action-retrieve-payment-transactions-from-lead
+- name: refund_transaction
+  cmd: refund_transaction
+  category: billing
+  description: Refund a payment transaction in full or in part.
+  source: https://support.kartra.com/en/articles/15369029-action-refund-a-payment-transaction
+  consequence: irreversible-money-movement
+- name: search_subscription
+  cmd: search_subscription
+  category: billing
+  description: Search for a recurring payment subscription.
+  source: https://support.kartra.com/en/articles/15369040-action-search-recurring-payment-subscription
+- name: get_subscription_details
+  cmd: get_subscription_details
+  category: billing
+  description: Retrieve the full detail of one recurring payment subscription.
+  source: https://support.kartra.com/en/articles/15369026-action-get-recurring-payment-subscription-details
+- name: retrieve_subscriptions_from_lead
+  cmd: retrieve_subscriptions_from_lead
+  category: billing
+  description: List all recurring payment subscriptions belonging to a lead.
+  source: https://support.kartra.com/en/articles/15369038-action-retrieve-recurring-payment-subscriptions-from-lead
+- name: modify_subscription_status
+  cmd: modify_subscription_status
+  category: billing
+  description: Change the status of a recurring payment subscription.
+  source: https://support.kartra.com/en/articles/15369023-action-edit-recurring-payment-subscription-status
+  consequence: billing-state-change
+- name: edit_subscription
+  cmd: edit_subscription
+  category: billing
+  description: Edit subscription settings — quantity, price, recurring period, installments, tax.
+  source: https://support.kartra.com/en/articles/15391958-action-edit-recurring-payment-subscription-settings
+  consequence: billing-state-change
+- name: cancel_transaction
+  cmd: cancel_transaction
+  category: billing
+  description: Cancel a recurring payment subscription.
+  source: https://support.kartra.com/en/articles/15369020-action-cancel-a-recurring-payment-subscription
+  consequence: billing-state-change
 agent_hazards:
-- Six commands move or alter money (refund_transaction, cancel_transaction, modify_subscription_status, edit_subscription) or customer billing state; none are idempotent and none can be safely retried.
+- Six commands move or alter money (refund_transaction, cancel_transaction, modify_subscription_status,
+  edit_subscription) or customer billing state; none are idempotent and none can be safely retried.
 - Every response is HTTP 200. An agent branching on transport status will read a refund failure as a success.
-- Chained calls return per-action statuses inside actions[]; a top-level Success does not mean each action succeeded.
+- Chained calls return per-action statuses inside actions[]; a top-level Success does not mean each action
+  succeeded.
+deployment:
+  mode: none
+  verified: derived
+  checked: '2026-08-12'
+  source: catalog MCP census
