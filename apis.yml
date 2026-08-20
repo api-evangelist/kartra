@@ -32,6 +32,19 @@ tags:
 - Contacts
 - E-Commerce
 - Payments
+- Subscription
+- Membership
+- Landing Pages
+- Webhook
+- Software-as-a-Service
+tags_raw:
+- Company
+- Marketing Automation
+- Email Marketing
+- CRM
+- Contacts
+- E-Commerce
+- Payments
 - Subscriptions
 - Membership
 - Landing Pages
@@ -51,6 +64,12 @@ apis:
   humanURL: https://support.kartra.com/en/collections/19655232-developers
   baseURL: https://app.kartra.com/api
   tags:
+  - Marketing Automation
+  - Contacts
+  - Email Marketing
+  - Payments
+  - Subscription
+  tags_raw:
   - Marketing Automation
   - Contacts
   - Email Marketing
