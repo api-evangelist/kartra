@@ -15,6 +15,17 @@ description: >-
   idempotency contract, and it returns HTTP 200 for every outcome including
   authentication failure — the numeric `type` field in the response body is the
   real error signal.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://kartra.com/wp-content/uploads/2024/06/Kartra-logo-icon-blue-transparent.png
 url: https://raw.githubusercontent.com/api-evangelist/kartra/refs/heads/main/apis.yml
 x-type: company
