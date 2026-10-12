@@ -1,0 +1,519 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/kartra/integrations
+checked:
+- https://composio.dev/toolkits/kartra
+- https://monid.ai/tools/kartra
+- https://n8n.io/integrations/kartra/
+- https://zapier.com/apps/kartra/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: kartra
+  url: https://zapier.com/apps/kartra/integrations
+  external_url: https://home.kartra.com/
+  partner_tier: GOLD
+  triggers:
+  - key: affiliate_signup_trigger
+    label: Affiliate Signs Up for Product
+  - key: assign_tag_trigger
+    label: Lead Is Assigned Tag
+  - key: buy_product_trigger
+    label: Customer Buys Product
+  - key: calendar_cancel_trigger
+    label: Lead Cancels a Calendar
+  - key: calendar_complete_trigger
+    label: Lead Completes a Calendar
+  - key: calendar_subscribe_trigger
+    label: Lead Registers to a Calendar
+  - key: cancel_subscription_trigger
+    label: Customer Cancels Subscription
+  - key: fill_form_trigger
+    label: Lead Fills an Optin Form
+  - key: jv_signup_trigger
+    label: JV Signs Up for Product
+  - key: membership_granted_trigger
+    label: Lead Is Granted Access to Membership
+  - key: membership_revoked_trigger
+    label: Lead Is Revoked Access to Membership
+  - key: page_split_test_link_trigger
+    label: Lead Clicks on a Page Split Test Link
+  - key: partial_refund_product_trigger
+    label: Customer Partial Refunds Product
+  - key: reaches_score_trigger
+    label: Lead Reaches Score for the First Time
+  - key: refund_product_trigger
+    label: Customer Refunds Product
+  - key: sequence_completion_trigger
+    label: Lead Completes a Sequence
+  - key: sequence_subscription_trigger
+    label: Lead Is Added to Sequence
+  - key: sequence_unsubscription_trigger
+    label: Lead Is Removed From Sequence
+  - key: subscribe_list_trigger
+    label: Lead Subscribes to List
+  - key: tracking_link_trigger
+    label: Lead Clicks on a Tracking Link
+  - key: unassign_tag_trigger
+    label: Lead Is Unssigned Tag
+  - key: unsubscribe_list_trigger
+    label: Lead Is Unsubscribed From List
+  - key: video_complete_trigger
+    label: Lead Completes a Kartra Video
+  - key: video_play_trigger
+    label: Lead Plays a Kartra Video
+  - key: visit_external_page_trigger
+    label: Lead Visits External Page
+  - key: visit_kartra_page_trigger
+    label: Lead Visits a Kartra Page
+  actions:
+  - key: assign_tag_action
+    label: Assign Tag to Lead
+  - key: calendar_cancel
+    label: Cancel Lead Subscription to Calendar
+  - key: calendar_subscribe
+    label: Suscribe Lead to Calendar
+  - key: cancel_subscription
+    label: Cancel a Subscription
+  - key: create_custom_field
+    label: Create Custom Field
+  - key: create_lead_with_custom_fields
+    label: Create New Lead
+  - key: edit_lead_with_custom_fields
+    label: Edit Lead
+  - key: edit_subscription
+    label: Edit Subscription
+  - key: edit_subscription_status
+    label: Modify Subscription Status
+  - key: give_points_to_lead
+    label: Add Points to a Lead
+  - key: refund_transaction
+    label: Refund a Transaction
+  - key: remove_points_from_lead
+    label: Remove Points From a Lead
+  - key: retrieve_account_lists
+    label: Retrieve All the Lists in Your Account
+  - key: retrieve_account_pages
+    label: Retrieve All the Pages in Your Account
+  - key: retrieve_account_sequences
+    label: Retrieve All the Sequences in Your Account
+  - key: retrieve_account_tags
+    label: Retrieve All the Tags in Your Account
+  - key: retrieve_custom_fields
+    label: Retrieve All the Custom Fields in Your Account
+  - key: subscribe_lead_to_list
+    label: Subscribe Lead to List
+  - key: subscribe_lead_to_sequence_at_step
+    label: Subscribe Lead to Sequence
+  - key: unassign_tag
+    label: Unassign Tag From Lead
+  - key: unsubscribe_lead_from_list
+    label: Unsubscribe Lead From List
+  - key: unsubscribe_lead_from_sequence
+    label: Unsubscribe Lead From Sequence
+  - key: _zap_raw_request
+    label: API Request (Beta)
+  searches:
+  - key: get_lead
+    label: Retrieve Lead Details
+  - key: get_subscription_details
+    label: Retrieve Subscription Details
+  - key: get_transaction_details
+    label: Retrieve Transaction Details
+  - key: search_lead
+    label: Search Lead
+edges:
+- partner_name: ClickFunnels Classic
+  partner: clickfunnels
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/clickfunnels-classic
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.clickfunnels.com/
+- partner_name: Zoom
+  partner: zoom
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/zoom
+  direction: third-party
+  category: Video Conferencing
+  partner_url: https://www.zoom.us/
+- partner_name: Manychat
+  partner: manychat
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/manychat
+  direction: third-party
+  category: Social Media Marketing
+  partner_url: https://manychat.com/
+- partner_name: Typeform
+  partner: typeform
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/typeform
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.typeform.com/signup?utm_medium=referral&utm_source=zapier&utm_campaign=zapier_integration&utm_content=marketplace
+- partner_name: Shopify
+  partner: shopify
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/shopify
+  direction: third-party
+  category: eCommerce
+  partner_url: https://www.shopify.com/
+- partner_name: WooCommerce
+  partner: woocommerce
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/woocommerce
+  direction: third-party
+  category: eCommerce
+  partner_url: https://woocommerce.com/products/woocommerce-zapier/?utm_source=zapier&utm_medium=website&utm_campaign=integration
+- partner_name: Bucket.io 2.0
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/bucketio-2
+  direction: third-party
+  category: Marketing
+  partner_url: https://app2.bucket.io/
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/hubspot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.hubspot.com/
+- partner_name: ThriveCart
+  partner: thrivecart
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/thrivecart
+  direction: third-party
+  category: eCommerce
+  partner_url: https://thrivecart.com/
+- partner_name: ActiveCampaign
+  partner: activecampaign
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/activecampaign
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.activecampaign.com/?utm_source=unpaid_syndication_website&utm_medium=referral&utm_campaign=zapier_listing
+- partner_name: Eventbrite
+  partner: eventbrite
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/eventbrite
+  direction: third-party
+  category: Event Management
+  partner_url: https://eventbrite.com/
+- partner_name: Gravity Forms
+  partner: gravity-forms
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/gravity-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.gravityforms.com/?utm_campaign=partners&utm_source=zapier-listing-learn-more&utm_medium=free-placement
+- partner_name: Acuity Scheduling
+  partner: acuity-scheduling
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/acuity-scheduling
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://acuityscheduling.com/?utm_source=zapier.com&utm_medium=referral&utm_campaign=integration-page
+- partner_name: Hotmart
+  partner: hotmart
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/hotmart-7006
+  direction: third-party
+  category: Online Courses
+  partner_url: https://www.hotmart.com/
+- partner_name: Facebook Conversions
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/facebook-conversions
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://developers.facebook.com/docs/marketing-api/server-side-api/guides/zapier-integration
+- partner_name: Kajabi
+  partner: kajabi
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/kajabi
+  direction: third-party
+  category: eCommerce
+  partner_url: http://kajabi.com/
+- partner_name: SamCart
+  partner: samcart
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/samcart
+  direction: third-party
+  category: eCommerce
+  partner_url: https://samcart.com/
+- partner_name: Mailchimp
+  partner: mailchimp
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/mailchimp
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://mailchimp.com/
+- partner_name: Circle
+  partner: circle-community
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/circle
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://circle.so/
+- partner_name: Flodesk
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/flodesk
+  direction: third-party
+  category: Email Newsletters
+  partner_url: https://flodesk.com/
+- partner_name: Squarespace Forms
+  partner: squarespace
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/squarespace-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.squarespace.com/
+- partner_name: Digistore24
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/digistore24
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.digistore24.com/
+- partner_name: Teachable
+  partner: teachable
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/teachable
+  direction: third-party
+  category: Online Courses
+  partner_url: https://teachable.com/
+- partner_name: ScoreApp
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/scoreapp
+  direction: third-party
+  category: Marketing
+  partner_url: https://www.scoreapp.com/
+- partner_name: Facebook Lead Ads
+  partner: facebook-lead-ads
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/facebook-lead-ads
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://www.facebook.com/business/ads/lead-ads
+- partner_name: Google Forms
+  partner: google-forms
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/google-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://google.com/
+- partner_name: Dubsado
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/dubsado
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://www.dubsado.com/
+- partner_name: Xero
+  partner: xero
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/xero
+  direction: third-party
+  category: Accounting
+  partner_url: https://xero5440.partnerlinks.io/uvwuuwrxyoi8
+- partner_name: Google Sheets
+  partner: google-sheets
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/google-sheets
+  direction: third-party
+  category: Google
+  partner_url: http://sheets.google.com/
+- partner_name: Agile CRM
+  partner: agile-crm
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kartra/integrations/agile-crm
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: http://www.agilecrm.com/
+templates:
+- title: Create leads in Kartra from new Jotform submissions
+  url: https://zapier.com/apps/jotform/integrations/kartra/438880/create-leads-in-kartra-from-new-jotform-submissions
+  apps:
+  - jotform
+  - kartra
+- title: Create new lead in Kartra for every new subscriber in Manychat
+  url: https://zapier.com/apps/kartra/integrations/manychat/1571765/create-new-lead-in-kartra-for-every-new-subscriber-in-manychat
+  apps:
+  - manychat
+  - kartra
+- title: Assign Karta tags to leads for new appointments in Acuity Scheduling
+  url: https://zapier.com/apps/acuity-scheduling/integrations/kartra/161074/assign-karta-tags-to-leads-for-new-appointments-in-acuity-scheduling
+  apps:
+  - acuity-scheduling
+  - kartra
+- title: Subscribe leads to a Kartra list from new appointments in Acuity Scheduling
+  url: https://zapier.com/apps/acuity-scheduling/integrations/kartra/440068/subscribe-leads-to-a-kartra-list-from-new-appointments-in-acuity-scheduling
+  apps:
+  - acuity-scheduling
+  - kartra
+- title: Assign tags to new Kartra leads when OnceHub bookings are scheduled
+  url: https://zapier.com/apps/kartra/integrations/oncehub/1703679/assign-tags-to-new-kartra-leads-when-oncehub-bookings-are-scheduled
+  apps:
+  - oncehub
+  - kartra
+- title: Create Google Sheets rows for new leads filling a Kartra optin form
+  url: https://zapier.com/apps/google-sheets/integrations/kartra/157425/create-google-sheets-rows-for-new-leads-filling-a-kartra-optin-form
+  apps:
+  - kartra
+  - google-sheets
+- title: Create Google Sheet rows for new customers buying products in Kartra
+  url: https://zapier.com/apps/google-sheets/integrations/kartra/164815/create-google-sheet-rows-for-new-customers-buying-products-in-kartra
+  apps:
+  - kartra
+  - google-sheets
+- title: Create Kartra leads from new Calendly invitees
+  url: https://zapier.com/apps/calendly/integrations/kartra/1618682/create-kartra-leads-from-new-calendly-invitees
+  apps:
+  - calendly
+  - kartra
+- title: Create Zoom webinar registrants for new leads filling Kartra optin forms
+  url: https://zapier.com/apps/kartra/integrations/zoom/228262/create-zoom-webinar-registrants-for-new-leads-filling-kartra-optin-forms
+  apps:
+  - kartra
+  - zoom
+- title: Create new Kartra leads from new ScoreApp sign-ups
+  url: https://zapier.com/apps/kartra/integrations/scoreapp/1591447/create-new-kartra-leads-from-new-scoreapp-sign-ups
+  apps:
+  - scoreapp
+  - kartra
+- title: Subscribe leads to lists on Kartra for new Google Ads leads
+  url: https://zapier.com/apps/google-ads/integrations/kartra/543373/subscribe-leads-to-lists-on-kartra-for-new-google-ads-leads
+  apps:
+  - google-ads
+  - kartra
+- title: Send lead events to Facebook Conversions when new leads subscribe to a Kartra list
+  url: https://zapier.com/apps/facebook-conversions/integrations/kartra/1379090/send-lead-events-to-facebook-conversions-when-new-leads-subscribe-to-a-kartra-list
+  apps:
+  - kartra
+  - facebook-conversions
+template_total: 1268
