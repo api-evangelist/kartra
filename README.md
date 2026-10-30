@@ -64,5 +64,122 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Kartra is a company surfaced via the API Evangelist harvest backlog (source: marketing-integration-graph) and added to the network as a stub for full-pipeline profiling.
-- https://kartra.com/
+Kartra is an all-in-one online business platform operated by Kartra, Inc. of Las Vegas, Nevada, that bundles landing pages and funnels, email marketing with automation sequences, checkouts and recurring billing, membership sites and courses, video hosting, calendars and booking, helpdesks, affiliate management and lead scoring into a single subscription. Its developer surface is three distinct things: an inbound API that is a single form-encoded POST endpoint at https://app.kartra.com/api driven by 29 documented `cmd` values and scoped to exactly one lead per call; an outbound API that POSTs 24 JSON lead and commerce events to URLs configured in the account; and an IPN system that POSTs six payment-lifecycle notifications as flat form variables. Kartra publishes no OpenAPI, no SDK in any language, no signed webhooks and no idempotency contract, and it returns HTTP 200 for every outcome including authentication failure — the numeric `type` field in the response body is the real error signal.
+
+**Areas:** Company · Marketing Automation · Email Marketing · CRM · Contacts · E-Commerce · Payments · Subscription · Membership · Landing Pages · Webhook · Software-as-a-Service
+
+## Kartra on APIs.io
+
+Everything profiled for Kartra is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/kartra/](https://apis.io/providers/kartra/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Kartra API](https://apis.io/apis/kartra/kartra-api/) — Kartra's inbound developer API. One endpoint, POST only, form-encoded, with the operation selected by `actions[].cmd`. Twenty-nine documented commands cover…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Kartra Webhooks](https://apis.io/asyncapis/kartra/kartra-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [kartra-mcp.yml](https://apis.io/servers/kartra/kartra-mcp-yml/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Kartra Authentication](https://apis.io/security/kartra/kartra-authentication/)
+- [Kartra Domain Security](https://apis.io/security/kartra/kartra-domain-security/)
+- [Kartra Vulnerability Disclosure](https://apis.io/security/kartra/kartra-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Kartra Plans Pricing](https://apis.io/plans/kartra/kartra-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Kartra Rate Limits](https://apis.io/rate-limits/kartra/kartra-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://kartra.com/)
+- [Documentation](https://support.kartra.com/en/collections/19655232-developers)
+- [Getting started](https://support.kartra.com/en/articles/15369011-activating-your-app)
+- [API reference](https://support.kartra.com/en/articles/15369013-connecting-to-the-api)
+- [Pricing](https://kartra.com/pricing/)
+- [Sign up](https://kartra.com/kartra-trial/)
+- [Support](https://support.kartra.com/en/)
+- [Blog](https://kartra.com/learning-center/)
+- [Compliance](https://kartra.com/gdpr/)
+- [Terms of service](https://kartra.com/terms-conditions/)
+- [Privacy policy](https://kartra.com/privacy-policy/)
+- [Status](https://status.kartra.com/)
+
+## API Evangelist rating
+
+**Kin Score 60.0** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 39.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 71.1 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 84.2 |
+
+**Agent readiness 26.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 33.9** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/kartra/](https://apis.io/providers/kartra/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Kartra: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/kartra/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
